@@ -1,0 +1,83 @@
+{
+    "name": "ParkWhiz",
+    "description": "Use ParkWhiz to book parking spaces in cities like Chicago & New York, as well as airport parking, stadium & event parking, or daily & monthly parking.",
+    "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/633-parkwhiz.jpg",
+    "tags": [
+        "automobiles",
+        "have api",
+        "locations",
+        "marketplaces",
+        "parking"
+    ],
+    "created": "2019-12-19",
+    "modified": "2019-12-19",
+    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/parkwhiz\/master\/apis.json",
+    "specificationVersion": "0.14",
+    "apis": [
+        {
+            "name": "ParkWhiz",
+            "description": null,
+            "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/633-parkwhiz.jpg",
+            "humanURL": "http:\/\/www.parkwhiz.com",
+            "baseURL": "",
+            "tags": [],
+            "properties": [
+                {
+                    "type": "x-openapi",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/parkwhiz-openapi.json"
+                },
+                {
+                    "type": "x-postman-collecction",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/parkwhiz-postman-collection.json"
+                }
+            ]
+        }
+    ],
+    "include": [],
+    "x-common": [
+        {
+            "type": "Base",
+            "url": "http:\/\/api.parkwhiz.com"
+        },
+        {
+            "type": "Blog",
+            "url": "http:\/\/www.parkwhiz.com\/blog\/"
+        },
+        {
+            "type": "Blog RSS",
+            "url": "http:\/\/www.parkwhiz.com\/blog\/feed"
+        },
+        {
+            "type": "Crunchbase",
+            "url": "http:\/\/www.crunchbase.com\/company\/parkwhiz"
+        },
+        {
+            "type": "Crunchbase",
+            "url": "https:\/\/crunchbase.com\/organization\/parkwhiz"
+        },
+        {
+            "type": "Developers",
+            "url": "http:\/\/www.parkwhiz.com\/developers\/"
+        },
+        {
+            "type": "Email",
+            "url": "ttucker@parkwhiz.com"
+        },
+        {
+            "type": "Email",
+            "url": "info@parkwhiz.com"
+        },
+        {
+            "type": "Github",
+            "url": "https:\/\/github.com\/ParkWhiz"
+        },
+        {
+            "type": "Twitter",
+            "url": "https:\/\/twitter.com\/ParkWhiz"
+        },
+        {
+            "type": "Website",
+            "url": "http:\/\/www.parkwhiz.com"
+        }
+    ]
+}
