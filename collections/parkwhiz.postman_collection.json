@@ -1,0 +1,226 @@
+{
+  "info": {
+    "name": "ParkWhiz / Arrive API v4",
+    "description": "Parking discovery, reservation, and payment via the ParkWhiz v4 REST API. Base URL: https://api.parkwhiz.com/v4 (production) or https://api-sandbox.parkwhiz.com/v4 (sandbox). Partner-gated: OAuth credentials are issued to approved partners by dev@parkwhiz.com. All requests use OAuth 2.0 bearer tokens.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      { "key": "token", "value": "{{bearerToken}}", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://api.parkwhiz.com/v4", "type": "string" },
+    { "key": "bearerToken", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "OAuth",
+      "item": [
+        {
+          "name": "Generate an access token",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/x-www-form-urlencoded" }],
+            "body": { "mode": "urlencoded", "urlencoded": [
+              { "key": "grant_type", "value": "client_credentials" },
+              { "key": "client_id", "value": "{{clientId}}" },
+              { "key": "client_secret", "value": "{{clientSecret}}" },
+              { "key": "scope", "value": "public partner" }
+            ] },
+            "url": { "raw": "{{baseUrl}}/oauth/token", "host": ["{{baseUrl}}"], "path": ["oauth", "token"] },
+            "description": "Exchange partner credentials for an OAuth access token."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Quotes & Locations",
+      "item": [
+        {
+          "name": "Search parking quotes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/quotes?q=", "host": ["{{baseUrl}}"], "path": ["quotes"], "query": [{ "key": "q", "value": "" }] },
+            "description": "Search bookable availability and pricing for a location, event, or time window."
+          }
+        },
+        {
+          "name": "Search parking locations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/locations?q=", "host": ["{{baseUrl}}"], "path": ["locations"], "query": [{ "key": "q", "value": "" }] },
+            "description": "Find parking facilities within a geographic area."
+          }
+        },
+        {
+          "name": "Retrieve a parking location",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/locations/:location_id", "host": ["{{baseUrl}}"], "path": ["locations", ":location_id"], "variable": [{ "key": "location_id", "value": "" }] },
+            "description": "Retrieve a parking location by ID."
+          }
+        },
+        {
+          "name": "List reviews for a location",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/locations/:location_id/reviews", "host": ["{{baseUrl}}"], "path": ["locations", ":location_id", "reviews"], "variable": [{ "key": "location_id", "value": "" }] },
+            "description": "List reviews for a parking location."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bookings",
+      "item": [
+        {
+          "name": "List bookings",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/bookings", "host": ["{{baseUrl}}"], "path": ["bookings"] },
+            "description": "List the authenticated user's bookings."
+          }
+        },
+        {
+          "name": "Preview a booking",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"quote_id\": 0\n}" },
+            "url": { "raw": "{{baseUrl}}/bookings/previews", "host": ["{{baseUrl}}"], "path": ["bookings", "previews"] },
+            "description": "Price a prospective booking before committing."
+          }
+        },
+        {
+          "name": "Create a booking",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"quote_id\": 0,\n  \"payment_method_id\": 0,\n  \"vehicle_id\": 0\n}" },
+            "url": { "raw": "{{baseUrl}}/bookings", "host": ["{{baseUrl}}"], "path": ["bookings"] },
+            "description": "Reserve parking from a selected quote. Requires a user-authorized token."
+          }
+        },
+        {
+          "name": "Retrieve a booking",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/bookings/:booking_id", "host": ["{{baseUrl}}"], "path": ["bookings", ":booking_id"], "variable": [{ "key": "booking_id", "value": "" }] },
+            "description": "Retrieve a booking by ID."
+          }
+        },
+        {
+          "name": "Retrieve the parking pass",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/bookings/:booking_id/parking_pass", "host": ["{{baseUrl}}"], "path": ["bookings", ":booking_id", "parking_pass"], "variable": [{ "key": "booking_id", "value": "" }] },
+            "description": "Retrieve the pre-formatted parking pass for a booking."
+          }
+        },
+        {
+          "name": "Attach a vehicle to a booking",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"vehicle_id\": 0\n}" },
+            "url": { "raw": "{{baseUrl}}/bookings/:booking_id/vehicle", "host": ["{{baseUrl}}"], "path": ["bookings", ":booking_id", "vehicle"], "variable": [{ "key": "booking_id", "value": "" }] },
+            "description": "Attach a known vehicle to a booking for gate/plate validation."
+          }
+        },
+        {
+          "name": "Cancel a booking",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/bookings/:booking_id", "host": ["{{baseUrl}}"], "path": ["bookings", ":booking_id"], "variable": [{ "key": "booking_id", "value": "" }] },
+            "description": "Cancel a booking."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Venues & Events",
+      "item": [
+        {
+          "name": "Search venues",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/venues", "host": ["{{baseUrl}}"], "path": ["venues"] },
+            "description": "Search venues such as stadiums, arenas, airports, and theaters."
+          }
+        },
+        {
+          "name": "List events at a venue",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/venues/:venue_id/events", "host": ["{{baseUrl}}"], "path": ["venues", ":venue_id", "events"], "variable": [{ "key": "venue_id", "value": "" }] },
+            "description": "List the events scheduled at a venue."
+          }
+        },
+        {
+          "name": "Search events",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/events", "host": ["{{baseUrl}}"], "path": ["events"] },
+            "description": "Search events."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Accounts & Vehicles",
+      "item": [
+        {
+          "name": "Retrieve current account",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/accounts/me", "host": ["{{baseUrl}}"], "path": ["accounts", "me"] },
+            "description": "Retrieve the current user's account profile."
+          }
+        },
+        {
+          "name": "List vehicles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/accounts/me/vehicles", "host": ["{{baseUrl}}"], "path": ["accounts", "me", "vehicles"] },
+            "description": "List saved vehicles."
+          }
+        },
+        {
+          "name": "Add a vehicle",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"make\": \"\",\n  \"model\": \"\",\n  \"color\": \"\",\n  \"license_plate\": \"\",\n  \"license_plate_state\": \"\"\n}" },
+            "url": { "raw": "{{baseUrl}}/accounts/me/vehicles", "host": ["{{baseUrl}}"], "path": ["accounts", "me", "vehicles"] },
+            "description": "Add a vehicle to the account."
+          }
+        },
+        {
+          "name": "List payment methods",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/accounts/me/payment_methods", "host": ["{{baseUrl}}"], "path": ["accounts", "me", "payment_methods"] },
+            "description": "List saved payment methods."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: ParkWhiz
+providerId: parkwhiz
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Parking
+- Mobility
+- Reservations
+- Partner API
+- Plans
+description: >-
+  ParkWhiz does not publish a self-serve, metered price list for its v4 API. The
+  API itself is described as free to use, but access is partner-gated: you
+  request OAuth credentials from ParkWhiz (dev@parkwhiz.com) and are approved as
+  an integration partner. Economics are transaction-based rather than
+  call-based - ParkWhiz operates a parking reservation marketplace, so revenue
+  flows from the booking transactions made through the API (booking / service
+  fees on each reservation, and revenue-share or referral terms negotiated per
+  partner) rather than from per-request API pricing. Exact fee splits and
+  partner terms are private and negotiated case by case.
+notes: >-
+  There is no public pricing page for the API. Consumer-facing parking prices
+  are set per location and returned in quote responses (base price plus any
+  service fee). Verify partner commercial terms directly with ParkWhiz during
+  reconciliation.
+sources:
+- https://developer.parkwhiz.com/
+- https://developer.parkwhiz.com/getting_started/
+- https://developer.parkwhiz.com/v4/
+- https://www.parkwhiz.com
+plans:
+- id: parkwhiz-public
+  name: Public Access
+  type: free
+  description: >-
+    Default public scope available to approved API clients for read access to
+    public resources such as location search and quotes. Requires OAuth
+    credentials issued by ParkWhiz.
+  entries:
+  - label: API Requests
+    name: api_requests
+    type: usage
+    metric: requests
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: free (credentials required; not self-serve)
+    userMultiplied: false
+  elements:
+  - name: Location & Quote Search
+  - name: Venue & Event Lookup
+  - name: Public Scope Only
+- id: parkwhiz-partner
+  name: Partner Access
+  type: partner
+  description: >-
+    Partner-scoped access for creating and managing bookings, parking passes,
+    and user accounts. Granted to approved integration partners. Commercial
+    terms are transaction-based (booking / service fees and negotiated revenue
+    share), not per-call.
+  entries:
+  - label: Booking Transactions
+    name: booking_transactions
+    type: usage
+    metric: bookings
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: transaction-based (booking / service fee per reservation; negotiated)
+    userMultiplied: false
+  elements:
+  - name: Bookings & Parking Passes
+  - name: Monthly Parking
+  - name: Accounts, Vehicles & Payment Methods
+  - name: Partner Scope
+  - name: Sandbox Environment
+- id: parkwhiz-enterprise
+  name: Enterprise / White-Label
+  type: enterprise
+  description: >-
+    Custom enterprise and white-label integrations (mobile, internal, and data
+    scopes; data-licensed resources), with negotiated revenue share, SLAs, and
+    support. Contact ParkWhiz / Arrive.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales (negotiated)
+    userMultiplied: false
+  elements:
+  - name: Data-Licensed Resources
+  - name: White-Label Booking Flow
+  - name: Negotiated Revenue Share
+  - name: SLAs & Support
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

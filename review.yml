@@ -1,0 +1,119 @@
+aid: parkwhiz
+name: ParkWhiz
+review:
+  question: Does ParkWhiz expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-03'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. ParkWhiz's documented public surface is
+    the v4 REST API (api.parkwhiz.com / api.arrive.com), which is entirely
+    request/response over HTTPS. There is no server-push transport (WebSocket or
+    SSE) documented on the ParkWhiz API to model. Real-time-ish behaviors such
+    as parking-pass validation happen inside the venue's gate hardware and the
+    consumer apps, not over a public streaming API endpoint.
+findings:
+  summary: |
+    ParkWhiz does not publish a documented public WebSocket API. ParkWhiz (with
+    the BestParking discovery brand) is a parking reservation and mobility
+    platform. Its consumer apps and website are backed by a v4 REST API
+    documented at developer.parkwhiz.com (mirrored at developer.arrive.com),
+    covering quote/location search, bookings, parking passes, venues and events,
+    monthly parking, accounts, vehicles, payment methods, and tickets. All
+    documented endpoints are REST over HTTPS at https://api.parkwhiz.com/v4
+    (sandbox at https://api-sandbox.parkwhiz.com/v4), authenticated with OAuth
+    2.0 bearer tokens. No realtime, bidirectional, or streaming WebSocket
+    (ws:// or wss://) endpoint is documented anywhere in the ParkWhiz API.
+  accessModel: |
+    The v4 API is publicly documented but partner-gated. OAuth credentials
+    (client_id, client_secret, redirect_uri) are issued to approved integration
+    partners on request via dev@parkwhiz.com - there is no self-serve signup.
+    Scopes are assigned per partner: public (default), partner, mobile,
+    internal, and data (the data scope is required for data-licensed resources);
+    some partners receive only public and partner scopes. A sandbox environment
+    is available for development.
+  corporateHistory: |
+    ParkWhiz (founded 2006, Chicago) and the BestParking discovery product were
+    consolidated under the Arrive / Arrive Mobility brand. In January 2021
+    Arrive Mobility - including the ParkWhiz and BestParking consumer brands -
+    merged into FlashParking (Flash). Separately, EasyPark Group later acquired
+    the rights to the "Arrive" name from Flash and rebranded EasyPark to Arrive
+    (2025); EasyPark Group also closed its acquisition of Flowbird Group in
+    January 2025. The prompt's premise that "Flowbird acquired ParkWhiz/Arrive
+    in 2024" is not supported: the ParkWhiz product and API line up under Flash,
+    while the "Arrive" consumer name is now used by EasyPark Group. The
+    developer portal continues to serve the ParkWhiz v4 API under both the
+    parkwhiz.com and arrive.com developer domains.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.parkwhiz.com/v4
+      documented: true
+      note: v4 API. Production api.parkwhiz.com / api.arrive.com; sandbox api-sandbox.parkwhiz.com. OAuth 2.0 bearer.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in the ParkWhiz v4 API as of the review date.
+  endpointsModeled: false
+  endpointsConfirmedRest:
+    - POST   https://api.parkwhiz.com/v4/oauth/token
+    - GET    https://api.parkwhiz.com/v4/quotes
+    - GET    https://api.parkwhiz.com/v4/locations
+    - GET    https://api.parkwhiz.com/v4/locations/{location_id}
+    - GET    https://api.parkwhiz.com/v4/locations/{location_id}/reviews
+    - POST   https://api.parkwhiz.com/v4/locations/{location_id}/reviews
+    - GET    https://api.parkwhiz.com/v4/bookings
+    - POST   https://api.parkwhiz.com/v4/bookings
+    - POST   https://api.parkwhiz.com/v4/bookings/previews
+    - GET    https://api.parkwhiz.com/v4/bookings/{booking_id}
+    - DELETE https://api.parkwhiz.com/v4/bookings/{booking_id}
+    - GET    https://api.parkwhiz.com/v4/bookings/{booking_id}/parking_pass
+    - GET    https://api.parkwhiz.com/v4/bookings/{booking_id}/vehicle
+    - POST   https://api.parkwhiz.com/v4/bookings/{booking_id}/vehicle
+    - POST   https://api.parkwhiz.com/v4/bookings/{booking_id}/extend/previews
+    - POST   https://api.parkwhiz.com/v4/bookings/{booking_id}/extend
+    - GET    https://api.parkwhiz.com/v4/monthly_bookings
+    - GET    https://api.parkwhiz.com/v4/monthly_bookings/{booking_id}
+    - GET    https://api.parkwhiz.com/v4/venues
+    - GET    https://api.parkwhiz.com/v4/venues/{venue_id}
+    - GET    https://api.parkwhiz.com/v4/venues/{venue_id}/events
+    - GET    https://api.parkwhiz.com/v4/events
+    - GET    https://api.parkwhiz.com/v4/events/{event_id}
+    - POST   https://api.parkwhiz.com/v4/accounts
+    - GET    https://api.parkwhiz.com/v4/accounts/me
+    - PATCH  https://api.parkwhiz.com/v4/accounts/me
+    - GET    https://api.parkwhiz.com/v4/accounts/me/vehicles
+    - POST   https://api.parkwhiz.com/v4/accounts/me/vehicles
+    - GET    https://api.parkwhiz.com/v4/accounts/me/payment_methods
+    - POST   https://api.parkwhiz.com/v4/tickets
+    - POST   https://api.parkwhiz.com/v4/tickets/previews
+    - POST   https://api.parkwhiz.com/v4/tickets/{ticket_id}/pay
+sources:
+  - url: https://developer.parkwhiz.com/
+    type: Documentation
+    note: ParkWhiz developer portal landing; partner-gated OAuth access.
+  - url: https://developer.parkwhiz.com/v4/
+    type: APIReference
+    note: v4 API reference - quotes, locations, bookings, passes, venues, events, accounts, vehicles, tickets. All REST.
+  - url: https://developer.parkwhiz.com/getting_started/
+    type: Documentation
+    note: Access model, OAuth credentials (dev@parkwhiz.com), scopes, sandbox vs production hosts.
+  - url: https://developer.arrive.com/v4/
+    type: APIReference
+    note: Arrive-branded mirror of the same v4 API reference.
+  - url: https://parkingtoday.com/suppliers/parking-giant-easypark-becomes-arrive-after-acquiring-rights-from-flash/
+    type: News
+    note: EasyPark acquired rights to the Arrive name from Flash; Arrive Mobility merged into Flash in Jan 2021.
+  - url: https://www.flashparking.com/blog/flashparking-and-arrive-to-merge/
+    type: News
+    note: FlashParking and Arrive (ParkWhiz, BestParking) merger, January 2021.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists on the ParkWhiz API - the documented
+    public surface is the v4 REST API over HTTPS. No AsyncAPI document was
+    created because there is no server-push transport to model. The apis.yml
+    catalogs the REST v4 API grouped into logical APIs (Quotes & Locations,
+    Bookings, Monthly Parking, Venues & Events, Accounts & Vehicles, Tickets).

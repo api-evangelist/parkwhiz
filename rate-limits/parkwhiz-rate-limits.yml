@@ -1,0 +1,57 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: ParkWhiz
+providerId: parkwhiz
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Parking
+- Mobility
+- Partner API
+- Rate Limiting
+- Quotas
+description: >-
+  ParkWhiz does not publish fixed numeric rate limits for the v4 API. Because
+  access is partner-gated and granted per approved integration, request ceilings
+  and any throttling are governed by the terms of the individual partner
+  agreement and the OAuth scopes issued (public, partner, mobile, internal,
+  data) rather than by a documented public per-minute cap. Standard HTTP
+  throttling (HTTP 429) should be assumed and handled by clients.
+notes: >-
+  No public per-account or per-endpoint numeric limit is documented as of the
+  review date. Confirm any agreed request ceilings with ParkWhiz during partner
+  onboarding, and validate against the sandbox environment before production.
+sources:
+- https://developer.parkwhiz.com/
+- https://developer.parkwhiz.com/getting_started/
+- https://developer.parkwhiz.com/v4/
+responseCodes:
+  throttled: 429
+limits:
+- name: API Requests
+  scope: partner
+  metric: requests
+  limit: not published
+  notes: No fixed numeric request-rate limit is documented; governed by partner agreement.
+- name: Scope Access
+  metric: scopes
+  scope: partner
+  limit: assigned per partner
+  notes: Available scopes (public, partner, mobile, internal, data) are assigned per partner; some partners receive only partner and public.
+- name: Booking Operations
+  scope: account
+  metric: bookings
+  limit: not published
+  notes: Booking creation is tied to user-authorized tokens and valid payment; no documented numeric cap.
+policies:
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on HTTP 429 responses.
+- name: Token Scoping
+  description: Request only the OAuth scopes needed; unavailable scopes will be rejected for the partner.
+- name: Sandbox First
+  description: Exercise integration flows against the sandbox host before production to validate throughput expectations.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

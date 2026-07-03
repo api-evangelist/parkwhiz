@@ -1,0 +1,99 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: ParkWhiz
+providerId: parkwhiz
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Parking
+- Mobility
+- Partner API
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of ParkWhiz API economics. Unlike a metered SaaS API, ParkWhiz is
+  a parking reservation marketplace, so there is no per-request invoice to model.
+  Cost and revenue flow through the booking transactions made via the v4 API:
+  each reservation carries a parking price (set per location) plus any service /
+  booking fee, and partner economics are governed by negotiated revenue-share or
+  referral terms. For an integrating partner, the relevant "spend" is the cost of
+  parking booked on behalf of users and the net of any revenue share, not an API
+  usage bill.
+notes: >-
+  No public API price list or usage invoice exists to reconcile against FOCUS
+  line items. Per-partner fee splits and revenue share are private. Track booking
+  volume and settled parking spend as the primary cost/revenue drivers.
+sources:
+- https://developer.parkwhiz.com/
+- https://developer.parkwhiz.com/v4/
+- https://www.parkwhiz.com
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: ParkWhiz
+serviceCategory: Mobility and Parking
+billingModel:
+  pricingCategory: Transaction-Based
+  billingFrequency: Per Transaction
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Usage
+  - Adjustment
+focusColumns:
+  ServiceName: ParkWhiz Booking
+  ServiceCategory: Mobility and Parking
+  ProviderName: ParkWhiz
+  PublisherName: ParkWhiz
+  InvoiceIssuerName: ParkWhiz
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Transaction-Based
+meters:
+- name: bookings
+  description: Parking reservations created via the API, each carrying a parking price plus any service fee.
+  unit: bookings
+  aggregation: sum
+  dimensions:
+  - partner
+  - location
+  - account
+- name: booking_value
+  description: Gross parking spend settled through bookings (base price plus fees).
+  unit: currency
+  aggregation: sum
+  dimensions:
+  - partner
+  - location
+- name: cancellations
+  description: Cancelled bookings that may trigger refunds/adjustments.
+  unit: bookings
+  aggregation: sum
+  dimensions:
+  - partner
+  - account
+- name: partner_revenue_share
+  description: Negotiated revenue share / referral earnings paid to a partner on bookings.
+  unit: currency
+  aggregation: sum
+  dimensions:
+  - partner
+principles:
+- name: Visibility
+  description: Track booking volume, gross booking value, and cancellations per partner and location.
+- name: Allocation
+  description: Attribute bookings to the originating partner, integration, and location so parking spend maps to cost centers.
+- name: Optimization
+  description: Use quote previews and booking previews to confirm price before committing; reduce cancellation-driven adjustments; negotiate revenue-share terms against booking volume.
+- name: Accountability
+  description: Assign an owner per partner integration and review monthly booking value and revenue share against agreement terms.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

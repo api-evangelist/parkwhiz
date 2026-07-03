@@ -1,0 +1,174 @@
+aid: parkwhiz
+url: https://raw.githubusercontent.com/api-evangelist/parkwhiz/refs/heads/main/apis.yml
+name: ParkWhiz
+kind: company
+description: ParkWhiz is a parking reservation and mobility platform (with the
+  BestParking discovery brand) that lets drivers search, price, reserve, and pay
+  for parking at facilities, venues, and events across North America. Its consumer
+  apps and website are backed by a documented v4 REST API (api.parkwhiz.com /
+  api.arrive.com) covering location and quote search, bookings, parking passes,
+  venues and events, monthly parking, vehicles, payment methods, and accounts.
+  ParkWhiz was rebranded to Arrive / Arrive Mobility and merged into FlashParking
+  (Flash) in January 2021; separately, EasyPark Group acquired the rights to the
+  "Arrive" name from Flash and rebranded itself to Arrive in 2025. The v4 API is
+  publicly documented but partner-gated - OAuth client credentials are issued to
+  approved partners on request (dev@parkwhiz.com), not self-serve.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Parking
+- Mobility
+- Reservations
+- Bookings
+- Transportation
+- Location
+- Events
+created: '2026-07-03'
+modified: '2026-07-03'
+specificationVersion: '0.19'
+apis:
+- aid: parkwhiz:parkwhiz-quotes-locations-api
+  name: ParkWhiz Quotes & Locations API
+  tags:
+  - Quotes
+  - Locations
+  - Search
+  - Pricing
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.parkwhiz.com/v4/
+  baseURL: https://api.parkwhiz.com/v4
+  properties:
+  - url: https://developer.parkwhiz.com/
+    type: Documentation
+  - url: https://developer.parkwhiz.com/v4/
+    type: APIReference
+  - url: openapi/parkwhiz-openapi.yml
+    type: OpenAPI
+  - url: collections/parkwhiz.postman_collection.json
+    type: PostmanCollection
+  - url: collections/parkwhiz.opencollection.json
+    type: OpenCollection
+  description: Search bookable parking availability and pricing (quotes) for a
+    geographic area, destination, venue, or event, and retrieve parking location
+    (facility) details and reviews. Returns both bookable ParkWhiz inventory and
+    non-bookable BestParking locations. Quote search can be filtered by time
+    window, coordinates, and event.
+- aid: parkwhiz:parkwhiz-bookings-api
+  name: ParkWhiz Bookings API
+  tags:
+  - Bookings
+  - Reservations
+  - Parking Pass
+  - Checkout
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.parkwhiz.com/v4/
+  baseURL: https://api.parkwhiz.com/v4
+  properties:
+  - url: https://developer.parkwhiz.com/v4/
+    type: APIReference
+  - url: openapi/parkwhiz-openapi.yml
+    type: OpenAPI
+  - url: collections/parkwhiz.postman_collection.json
+    type: PostmanCollection
+  - url: collections/parkwhiz.opencollection.json
+    type: OpenCollection
+  description: Preview, create, retrieve, list, extend, cancel, and share parking
+    bookings from a selected quote; retrieve the pre-formatted parking pass and
+    scan/QR code for a booking; and attach a vehicle to a booking for validation.
+    Requires a user-authorized OAuth token for the account holding the booking.
+- aid: parkwhiz:parkwhiz-monthly-parking-api
+  name: ParkWhiz Monthly Parking API
+  tags:
+  - Monthly Parking
+  - Subscriptions
+  - Bookings
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.parkwhiz.com/v4/
+  baseURL: https://api.parkwhiz.com/v4
+  properties:
+  - url: https://developer.parkwhiz.com/v4/
+    type: APIReference
+  - url: openapi/parkwhiz-openapi.yml
+    type: OpenAPI
+  description: List and retrieve recurring monthly parking bookings, the
+    subscription-style counterpart to transient (hourly / daily / event) bookings.
+- aid: parkwhiz:parkwhiz-venues-events-api
+  name: ParkWhiz Venues & Events API
+  tags:
+  - Venues
+  - Events
+  - Destinations
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.parkwhiz.com/v4/
+  baseURL: https://api.parkwhiz.com/v4
+  properties:
+  - url: https://developer.parkwhiz.com/v4/
+    type: APIReference
+  - url: openapi/parkwhiz-openapi.yml
+    type: OpenAPI
+  - url: collections/parkwhiz.postman_collection.json
+    type: PostmanCollection
+  - url: collections/parkwhiz.opencollection.json
+    type: OpenCollection
+  description: Search venues (stadiums, arenas, airports, theaters) and events, and
+    retrieve the events scheduled at a venue, so drivers can find and price event
+    parking near a destination and time.
+- aid: parkwhiz:parkwhiz-accounts-vehicles-api
+  name: ParkWhiz Accounts & Vehicles API
+  tags:
+  - Accounts
+  - Users
+  - Vehicles
+  - Payment Methods
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.parkwhiz.com/v4/
+  baseURL: https://api.parkwhiz.com/v4
+  properties:
+  - url: https://developer.parkwhiz.com/v4/
+    type: APIReference
+  - url: openapi/parkwhiz-openapi.yml
+    type: OpenAPI
+  description: Create and manage user accounts and profiles, saved vehicles,
+    payment methods, frequent locations, and recommended bookings, plus account
+    recovery, password reset, and phone verification. Vehicles saved here can be
+    attached to bookings for gate/plate validation.
+- aid: parkwhiz:parkwhiz-tickets-api
+  name: ParkWhiz Tickets API
+  tags:
+  - Tickets
+  - Payments
+  - Violations
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.parkwhiz.com/v4/
+  baseURL: https://api.parkwhiz.com/v4
+  properties:
+  - url: https://developer.parkwhiz.com/v4/
+    type: APIReference
+  - url: openapi/parkwhiz-openapi.yml
+    type: OpenAPI
+  description: Preview, create, update, pay, and close parking tickets (drive-up /
+    on-demand parking transactions and violations), and associate a vehicle with a
+    ticket.
+common:
+- type: Website
+  url: https://www.parkwhiz.com
+- type: LinkedIn
+  url: https://www.linkedin.com/company/parkwhiz
+- type: Documentation
+  url: https://developer.parkwhiz.com/
+- type: DeveloperPortal
+  url: https://developer.parkwhiz.com/
+- type: GettingStarted
+  url: https://developer.parkwhiz.com/getting_started/
+- type: Changelog
+  url: https://developer.parkwhiz.com/changes/
+- type: SDK
+  url: https://developer.parkwhiz.com/libraries/
+- type: Plans
+  url: plans/parkwhiz-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/parkwhiz-rate-limits.yml
+- type: FinOps
+  url: finops/parkwhiz-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

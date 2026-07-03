@@ -1,0 +1,153 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ParkWhiz / Arrive API v4",
+    "version": "4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": { "name": "OAuth", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Generate an access token", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parkwhiz.com/v4/oauth/token",
+            "body": { "type": "form", "data": "grant_type=client_credentials&client_id={{clientId}}&client_secret={{clientSecret}}&scope=public+partner" }
+          },
+          "docs": "Exchange partner credentials for an OAuth access token. Credentials are issued to approved partners by dev@parkwhiz.com."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Quotes & Locations", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Search parking quotes", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.parkwhiz.com/v4/quotes" },
+          "docs": "Search bookable availability and pricing for a location, event, or time window."
+        },
+        {
+          "info": { "name": "Search parking locations", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.parkwhiz.com/v4/locations" },
+          "docs": "Find parking facilities within a geographic area."
+        },
+        {
+          "info": { "name": "Retrieve a parking location", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parkwhiz.com/v4/locations/:location_id",
+            "params": [{ "name": "location_id", "value": "", "type": "path", "description": "The parking location ID." }]
+          },
+          "docs": "Retrieve a parking location by ID."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Bookings", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List bookings", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.parkwhiz.com/v4/bookings" },
+          "docs": "List the authenticated user's bookings."
+        },
+        {
+          "info": { "name": "Preview a booking", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parkwhiz.com/v4/bookings/previews",
+            "body": { "type": "json", "data": "{ \"quote_id\": 0 }" }
+          },
+          "docs": "Price a prospective booking before committing."
+        },
+        {
+          "info": { "name": "Create a booking", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parkwhiz.com/v4/bookings",
+            "body": { "type": "json", "data": "{ \"quote_id\": 0, \"payment_method_id\": 0, \"vehicle_id\": 0 }" }
+          },
+          "docs": "Reserve parking from a selected quote. Requires a user-authorized token."
+        },
+        {
+          "info": { "name": "Retrieve the parking pass", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parkwhiz.com/v4/bookings/:booking_id/parking_pass",
+            "params": [{ "name": "booking_id", "value": "", "type": "path", "description": "The booking ID." }]
+          },
+          "docs": "Retrieve the pre-formatted parking pass for a booking."
+        },
+        {
+          "info": { "name": "Attach a vehicle to a booking", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parkwhiz.com/v4/bookings/:booking_id/vehicle",
+            "params": [{ "name": "booking_id", "value": "", "type": "path", "description": "The booking ID." }],
+            "body": { "type": "json", "data": "{ \"vehicle_id\": 0 }" }
+          },
+          "docs": "Attach a known vehicle to a booking for gate/plate validation."
+        },
+        {
+          "info": { "name": "Cancel a booking", "type": "http" },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.parkwhiz.com/v4/bookings/:booking_id",
+            "params": [{ "name": "booking_id", "value": "", "type": "path", "description": "The booking ID." }]
+          },
+          "docs": "Cancel a booking."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Venues & Events", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Search venues", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.parkwhiz.com/v4/venues" },
+          "docs": "Search venues such as stadiums, arenas, airports, and theaters."
+        },
+        {
+          "info": { "name": "List events at a venue", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parkwhiz.com/v4/venues/:venue_id/events",
+            "params": [{ "name": "venue_id", "value": "", "type": "path", "description": "The venue ID." }]
+          },
+          "docs": "List the events scheduled at a venue."
+        },
+        {
+          "info": { "name": "Search events", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.parkwhiz.com/v4/events" },
+          "docs": "Search events."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Accounts & Vehicles", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Retrieve current account", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.parkwhiz.com/v4/accounts/me" },
+          "docs": "Retrieve the current user's account profile."
+        },
+        {
+          "info": { "name": "List vehicles", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.parkwhiz.com/v4/accounts/me/vehicles" },
+          "docs": "List saved vehicles."
+        },
+        {
+          "info": { "name": "List payment methods", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.parkwhiz.com/v4/accounts/me/payment_methods" },
+          "docs": "List saved payment methods."
+        }
+      ]
+    }
+  ]
+}
