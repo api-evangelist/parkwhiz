@@ -1,0 +1,25 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/parkwhiz-openapi.yml
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+  - clientCredentials
+schemes:
+- name: oauth2
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.parkwhiz.com/v4/oauth/token
+    scopes: 3
+  - flow: authorizationCode
+    authorizationUrl: https://api.parkwhiz.com/v4/oauth/authorize
+    tokenUrl: https://api.parkwhiz.com/v4/oauth/token
+    scopes: 2
+  description: 'OAuth 2.0. Partner credentials (client_id, client_secret, redirect_uri) are
+    issued by ParkWhiz to approved partners. Scopes: public (default), partner, mobile, internal,
+    data.'
+  sources:
+  - openapi/parkwhiz-openapi.yml

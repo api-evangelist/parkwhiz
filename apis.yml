@@ -149,6 +149,10 @@ apis:
     on-demand parking transactions and violations), and associate a vehicle with a
     ticket.
 common:
+- type: DomainSecurity
+  url: security/parkwhiz-domain-security.yml
+- type: Authentication
+  url: authentication/parkwhiz-authentication.yml
 - type: OAuthScopes
   url: scopes/parkwhiz-scopes.yml
 - type: Website
