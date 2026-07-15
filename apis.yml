@@ -149,6 +149,8 @@ apis:
     on-demand parking transactions and violations), and associate a vehicle with a
     ticket.
 common:
+- type: AgenticAccess
+  url: agentic-access/parkwhiz-agentic-access.yml
 - type: DomainSecurity
   url: security/parkwhiz-domain-security.yml
 - type: Authentication
