@@ -1,0 +1,258 @@
+openapi: 3.0.3
+info:
+  title: ParkWhiz / Arrive API v4 Accounts & Vehicles Quotes & Locations API
+  description: 'The ParkWhiz v4 REST API powers parking discovery, reservation, and payment for the ParkWhiz and BestParking consumer products and for approved integration partners. It exposes bookable parking availability and pricing (quotes), parking locations, bookings and parking passes, venues and events, monthly parking, accounts, vehicles, payment methods, and tickets.
+
+    Access is partner-gated: the API is publicly documented at developer.parkwhiz.com (mirrored at developer.arrive.com), but OAuth client credentials (client_id, client_secret, redirect_uri) are issued to approved partners on request via dev@parkwhiz.com, not through self-serve signup. Scopes are assigned per partner - public (default), partner, mobile, internal, and data. A sandbox environment is available for development.
+
+    This OpenAPI document was authored by API Evangelist from the public v4 developer documentation. Paths and methods reflect the documented API; the schema shapes are representative models, not a byte-for-byte copy of the provider spec.'
+  version: '4.0'
+  contact:
+    name: ParkWhiz Developer Support
+    url: https://developer.parkwhiz.com/
+    email: dev@parkwhiz.com
+  x-logo:
+    url: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+servers:
+- url: https://api.parkwhiz.com/v4
+  description: Production
+- url: https://api-sandbox.parkwhiz.com/v4
+  description: Sandbox
+- url: https://api.arrive.com/v4
+  description: Production (Arrive-branded host)
+security:
+- oauth2: []
+tags:
+- name: Quotes & Locations
+  description: Search bookable availability and pricing, and parking location details.
+paths:
+  /quotes:
+    get:
+      operationId: searchQuotes
+      tags:
+      - Quotes & Locations
+      summary: Search parking quotes
+      description: Search bookable parking availability and pricing for a location, event, or time window. Returns quotes with prices and the associated parking location.
+      parameters:
+      - name: q
+        in: query
+        description: Composite search string, e.g. coordinates plus a start/end time window (bounding box, radius, event id, and time filters are supported).
+        schema:
+          type: string
+      - name: fields
+        in: query
+        description: Comma-separated sparse fieldset controlling the embedded objects returned.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A list of quotes.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Quote'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /locations:
+    get:
+      operationId: searchLocations
+      tags:
+      - Quotes & Locations
+      summary: Search parking locations
+      description: Find parking facilities within a geographic area.
+      parameters:
+      - name: q
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A list of parking locations.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+  /locations/{location_id}:
+    get:
+      operationId: getLocation
+      tags:
+      - Quotes & Locations
+      summary: Retrieve a parking location
+      parameters:
+      - $ref: '#/components/parameters/LocationId'
+      responses:
+        '200':
+          description: A parking location.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /locations/{location_id}/reviews:
+    get:
+      operationId: listLocationReviews
+      tags:
+      - Quotes & Locations
+      summary: List reviews for a location
+      parameters:
+      - $ref: '#/components/parameters/LocationId'
+      responses:
+        '200':
+          description: A list of reviews.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Review'
+    post:
+      operationId: createLocationReview
+      tags:
+      - Quotes & Locations
+      summary: Create a review for a location
+      parameters:
+      - $ref: '#/components/parameters/LocationId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Review'
+      responses:
+        '201':
+          description: The created review.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid OAuth token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Location:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        address1:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postal_code:
+          type: string
+        coordinates:
+          type: array
+          items:
+            type: number
+          example:
+          - 41.8781
+          - -87.6298
+        bookable:
+          type: boolean
+        description:
+          type: string
+    Price:
+      type: object
+      properties:
+        currency:
+          type: string
+          example: USD
+        amount:
+          type: number
+          format: float
+        formatted:
+          type: string
+          example: $12.00
+    Quote:
+      type: object
+      properties:
+        id:
+          type: integer
+        location_id:
+          type: integer
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        price:
+          $ref: '#/components/schemas/Price'
+        purchase_options:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              base_price:
+                $ref: '#/components/schemas/Price'
+              price:
+                $ref: '#/components/schemas/Price'
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+    Review:
+      type: object
+      properties:
+        id:
+          type: integer
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+        body:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+  parameters:
+    LocationId:
+      name: location_id
+      in: path
+      required: true
+      schema:
+        type: integer
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: 'OAuth 2.0. Partner credentials (client_id, client_secret, redirect_uri) are issued by ParkWhiz to approved partners. Scopes: public (default), partner, mobile, internal, data.'
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.parkwhiz.com/v4/oauth/token
+          scopes:
+            public: Default read access to public resources.
+            partner: Partner-level access to bookable inventory and bookings.
+            data: Access to resources restricted by data licensing.
+        authorizationCode:
+          authorizationUrl: https://api.parkwhiz.com/v4/oauth/authorize
+          tokenUrl: https://api.parkwhiz.com/v4/oauth/token
+          scopes:
+            public: Default read access to public resources.
+            mobile: Mobile app user access.

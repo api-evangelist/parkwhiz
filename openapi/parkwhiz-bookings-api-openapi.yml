@@ -1,0 +1,333 @@
+openapi: 3.0.3
+info:
+  title: ParkWhiz / Arrive API v4 Accounts & Vehicles Bookings API
+  description: 'The ParkWhiz v4 REST API powers parking discovery, reservation, and payment for the ParkWhiz and BestParking consumer products and for approved integration partners. It exposes bookable parking availability and pricing (quotes), parking locations, bookings and parking passes, venues and events, monthly parking, accounts, vehicles, payment methods, and tickets.
+
+    Access is partner-gated: the API is publicly documented at developer.parkwhiz.com (mirrored at developer.arrive.com), but OAuth client credentials (client_id, client_secret, redirect_uri) are issued to approved partners on request via dev@parkwhiz.com, not through self-serve signup. Scopes are assigned per partner - public (default), partner, mobile, internal, and data. A sandbox environment is available for development.
+
+    This OpenAPI document was authored by API Evangelist from the public v4 developer documentation. Paths and methods reflect the documented API; the schema shapes are representative models, not a byte-for-byte copy of the provider spec.'
+  version: '4.0'
+  contact:
+    name: ParkWhiz Developer Support
+    url: https://developer.parkwhiz.com/
+    email: dev@parkwhiz.com
+  x-logo:
+    url: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+servers:
+- url: https://api.parkwhiz.com/v4
+  description: Production
+- url: https://api-sandbox.parkwhiz.com/v4
+  description: Sandbox
+- url: https://api.arrive.com/v4
+  description: Production (Arrive-branded host)
+security:
+- oauth2: []
+tags:
+- name: Bookings
+  description: Create and manage parking reservations and parking passes.
+paths:
+  /bookings:
+    get:
+      operationId: listBookings
+      tags:
+      - Bookings
+      summary: List the authenticated user's bookings
+      responses:
+        '200':
+          description: A list of bookings.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Booking'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createBooking
+      tags:
+      - Bookings
+      summary: Create a booking
+      description: Reserve parking from a selected quote. Requires a user-authorized token.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingRequest'
+      responses:
+        '201':
+          description: The created booking.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /bookings/previews:
+    post:
+      operationId: previewBooking
+      tags:
+      - Bookings
+      summary: Preview a booking price
+      description: Price a prospective booking before committing to it.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingRequest'
+      responses:
+        '200':
+          description: A booking price preview.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+  /bookings/{booking_id}:
+    get:
+      operationId: getBooking
+      tags:
+      - Bookings
+      summary: Retrieve a booking
+      parameters:
+      - $ref: '#/components/parameters/BookingId'
+      responses:
+        '200':
+          description: A booking.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: cancelBooking
+      tags:
+      - Bookings
+      summary: Cancel a booking
+      parameters:
+      - $ref: '#/components/parameters/BookingId'
+      responses:
+        '204':
+          description: The booking was cancelled.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /bookings/{booking_id}/parking_pass:
+    get:
+      operationId: getBookingParkingPass
+      tags:
+      - Bookings
+      summary: Retrieve the parking pass for a booking
+      description: Returns a pre-formatted ParkWhiz parking pass. Requires a user authorization token for the account holding the booking.
+      parameters:
+      - $ref: '#/components/parameters/BookingId'
+      responses:
+        '200':
+          description: An array of parking pass models (length 1).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ParkingPass'
+  /bookings/{booking_id}/vehicle:
+    get:
+      operationId: getBookingVehicle
+      tags:
+      - Bookings
+      summary: Retrieve the vehicle attached to a booking
+      parameters:
+      - $ref: '#/components/parameters/BookingId'
+      responses:
+        '200':
+          description: The vehicle attached to the booking.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+    post:
+      operationId: setBookingVehicle
+      tags:
+      - Bookings
+      summary: Attach a vehicle to a booking
+      description: Attach a known and existing vehicle to a booking by vehicle_id, used to validate a vehicle at many parking locations. Requires a user authorization token for the target account.
+      parameters:
+      - $ref: '#/components/parameters/BookingId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                vehicle_id:
+                  type: integer
+              required:
+              - vehicle_id
+      responses:
+        '200':
+          description: The attached vehicle.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+  /bookings/{booking_id}/extend/previews:
+    post:
+      operationId: previewBookingExtension
+      tags:
+      - Bookings
+      summary: Preview extending a booking
+      parameters:
+      - $ref: '#/components/parameters/BookingId'
+      responses:
+        '200':
+          description: An extension price preview.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+  /bookings/{booking_id}/extend:
+    post:
+      operationId: extendBooking
+      tags:
+      - Bookings
+      summary: Extend a booking's duration
+      parameters:
+      - $ref: '#/components/parameters/BookingId'
+      responses:
+        '200':
+          description: The extended booking.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid OAuth token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request could not be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Booking:
+      type: object
+      properties:
+        id:
+          type: integer
+        location_id:
+          type: integer
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        status:
+          type: string
+          example: valid
+        price:
+          $ref: '#/components/schemas/Price'
+        parking_pass_id:
+          type: integer
+        vehicle:
+          $ref: '#/components/schemas/Vehicle'
+    Vehicle:
+      type: object
+      properties:
+        id:
+          type: integer
+        make:
+          type: string
+        model:
+          type: string
+        color:
+          type: string
+        license_plate:
+          type: string
+        license_plate_state:
+          type: string
+    BookingRequest:
+      type: object
+      properties:
+        quote_id:
+          type: integer
+        payment_method_id:
+          type: integer
+        vehicle_id:
+          type: integer
+      required:
+      - quote_id
+    Price:
+      type: object
+      properties:
+        currency:
+          type: string
+          example: USD
+        amount:
+          type: number
+          format: float
+        formatted:
+          type: string
+          example: $12.00
+    ParkingPass:
+      type: object
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+          example: barcode
+        validation_steps:
+          type: array
+          items:
+            type: string
+        scan_code_url:
+          type: string
+          format: uri
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+  parameters:
+    BookingId:
+      name: booking_id
+      in: path
+      required: true
+      schema:
+        type: integer
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: 'OAuth 2.0. Partner credentials (client_id, client_secret, redirect_uri) are issued by ParkWhiz to approved partners. Scopes: public (default), partner, mobile, internal, data.'
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.parkwhiz.com/v4/oauth/token
+          scopes:
+            public: Default read access to public resources.
+            partner: Partner-level access to bookable inventory and bookings.
+            data: Access to resources restricted by data licensing.
+        authorizationCode:
+          authorizationUrl: https://api.parkwhiz.com/v4/oauth/authorize
+          tokenUrl: https://api.parkwhiz.com/v4/oauth/token
+          scopes:
+            public: Default read access to public resources.
+            mobile: Mobile app user access.

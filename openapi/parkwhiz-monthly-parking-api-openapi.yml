@@ -1,0 +1,133 @@
+openapi: 3.0.3
+info:
+  title: ParkWhiz / Arrive API v4 Accounts & Vehicles Monthly Parking API
+  description: 'The ParkWhiz v4 REST API powers parking discovery, reservation, and payment for the ParkWhiz and BestParking consumer products and for approved integration partners. It exposes bookable parking availability and pricing (quotes), parking locations, bookings and parking passes, venues and events, monthly parking, accounts, vehicles, payment methods, and tickets.
+
+    Access is partner-gated: the API is publicly documented at developer.parkwhiz.com (mirrored at developer.arrive.com), but OAuth client credentials (client_id, client_secret, redirect_uri) are issued to approved partners on request via dev@parkwhiz.com, not through self-serve signup. Scopes are assigned per partner - public (default), partner, mobile, internal, and data. A sandbox environment is available for development.
+
+    This OpenAPI document was authored by API Evangelist from the public v4 developer documentation. Paths and methods reflect the documented API; the schema shapes are representative models, not a byte-for-byte copy of the provider spec.'
+  version: '4.0'
+  contact:
+    name: ParkWhiz Developer Support
+    url: https://developer.parkwhiz.com/
+    email: dev@parkwhiz.com
+  x-logo:
+    url: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+servers:
+- url: https://api.parkwhiz.com/v4
+  description: Production
+- url: https://api-sandbox.parkwhiz.com/v4
+  description: Sandbox
+- url: https://api.arrive.com/v4
+  description: Production (Arrive-branded host)
+security:
+- oauth2: []
+tags:
+- name: Monthly Parking
+  description: Recurring monthly parking bookings.
+paths:
+  /monthly_bookings:
+    get:
+      operationId: listMonthlyBookings
+      tags:
+      - Monthly Parking
+      summary: List monthly bookings
+      responses:
+        '200':
+          description: A list of monthly bookings.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Booking'
+  /monthly_bookings/{booking_id}:
+    get:
+      operationId: getMonthlyBooking
+      tags:
+      - Monthly Parking
+      summary: Retrieve a monthly booking
+      parameters:
+      - $ref: '#/components/parameters/BookingId'
+      responses:
+        '200':
+          description: A monthly booking.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+components:
+  parameters:
+    BookingId:
+      name: booking_id
+      in: path
+      required: true
+      schema:
+        type: integer
+  schemas:
+    Price:
+      type: object
+      properties:
+        currency:
+          type: string
+          example: USD
+        amount:
+          type: number
+          format: float
+        formatted:
+          type: string
+          example: $12.00
+    Booking:
+      type: object
+      properties:
+        id:
+          type: integer
+        location_id:
+          type: integer
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        status:
+          type: string
+          example: valid
+        price:
+          $ref: '#/components/schemas/Price'
+        parking_pass_id:
+          type: integer
+        vehicle:
+          $ref: '#/components/schemas/Vehicle'
+    Vehicle:
+      type: object
+      properties:
+        id:
+          type: integer
+        make:
+          type: string
+        model:
+          type: string
+        color:
+          type: string
+        license_plate:
+          type: string
+        license_plate_state:
+          type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: 'OAuth 2.0. Partner credentials (client_id, client_secret, redirect_uri) are issued by ParkWhiz to approved partners. Scopes: public (default), partner, mobile, internal, data.'
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.parkwhiz.com/v4/oauth/token
+          scopes:
+            public: Default read access to public resources.
+            partner: Partner-level access to bookable inventory and bookings.
+            data: Access to resources restricted by data licensing.
+        authorizationCode:
+          authorizationUrl: https://api.parkwhiz.com/v4/oauth/authorize
+          tokenUrl: https://api.parkwhiz.com/v4/oauth/token
+          scopes:
+            public: Default read access to public resources.
+            mobile: Mobile app user access.
