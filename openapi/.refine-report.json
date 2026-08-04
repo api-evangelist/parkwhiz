@@ -1,0 +1,26 @@
+{
+  "provider": "parkwhiz",
+  "sources": [
+    "parkwhiz-accounts-vehicles-api-openapi.yml",
+    "parkwhiz-bookings-api-openapi.yml",
+    "parkwhiz-monthly-parking-api-openapi.yml",
+    "parkwhiz-oauth-api-openapi.yml",
+    "parkwhiz-quotes-locations-api-openapi.yml",
+    "parkwhiz-tickets-api-openapi.yml",
+    "parkwhiz-venues-events-api-openapi.yml"
+  ],
+  "outputs": [
+    "parkwhiz-accounts-vehicles-api-openapi.yml",
+    "parkwhiz-bookings-api-openapi.yml",
+    "parkwhiz-monthly-parking-api-openapi.yml",
+    "parkwhiz-oauth-api-openapi.yml",
+    "parkwhiz-quotes-locations-api-openapi.yml",
+    "parkwhiz-tickets-api-openapi.yml",
+    "parkwhiz-venues-events-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

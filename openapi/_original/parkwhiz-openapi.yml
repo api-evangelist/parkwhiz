@@ -1,0 +1,825 @@
+openapi: 3.0.3
+info:
+  title: ParkWhiz / Arrive API v4
+  description: >-
+    The ParkWhiz v4 REST API powers parking discovery, reservation, and payment
+    for the ParkWhiz and BestParking consumer products and for approved
+    integration partners. It exposes bookable parking availability and pricing
+    (quotes), parking locations, bookings and parking passes, venues and events,
+    monthly parking, accounts, vehicles, payment methods, and tickets.
+
+    Access is partner-gated: the API is publicly documented at
+    developer.parkwhiz.com (mirrored at developer.arrive.com), but OAuth client
+    credentials (client_id, client_secret, redirect_uri) are issued to approved
+    partners on request via dev@parkwhiz.com, not through self-serve signup.
+    Scopes are assigned per partner - public (default), partner, mobile,
+    internal, and data. A sandbox environment is available for development.
+
+    This OpenAPI document was authored by API Evangelist from the public v4
+    developer documentation. Paths and methods reflect the documented API; the
+    schema shapes are representative models, not a byte-for-byte copy of the
+    provider spec.
+  version: '4.0'
+  contact:
+    name: ParkWhiz Developer Support
+    url: https://developer.parkwhiz.com/
+    email: dev@parkwhiz.com
+  x-logo:
+    url: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+servers:
+  - url: https://api.parkwhiz.com/v4
+    description: Production
+  - url: https://api-sandbox.parkwhiz.com/v4
+    description: Sandbox
+  - url: https://api.arrive.com/v4
+    description: Production (Arrive-branded host)
+security:
+  - oauth2: []
+tags:
+  - name: OAuth
+    description: Token issuance for partner and user authorization.
+  - name: Quotes & Locations
+    description: Search bookable availability and pricing, and parking location details.
+  - name: Bookings
+    description: Create and manage parking reservations and parking passes.
+  - name: Monthly Parking
+    description: Recurring monthly parking bookings.
+  - name: Venues & Events
+    description: Venue and event lookup for event parking.
+  - name: Accounts & Vehicles
+    description: User accounts, vehicles, and payment methods.
+  - name: Tickets
+    description: Drive-up parking transactions, violations, and payment.
+paths:
+  /oauth/token:
+    post:
+      operationId: createToken
+      tags: [OAuth]
+      summary: Generate an OAuth access token
+      description: >-
+        Exchange partner credentials or user credentials for an access token.
+        Supported grant types include client_credentials, password,
+        authorization_code, refresh_token, and public token for mobile apps.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                grant_type:
+                  type: string
+                  enum: [client_credentials, password, authorization_code, refresh_token]
+                client_id:
+                  type: string
+                client_secret:
+                  type: string
+                scope:
+                  type: string
+                  example: public partner
+              required: [grant_type, client_id]
+      responses:
+        '200':
+          description: An access token.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token: { type: string }
+                  token_type: { type: string, example: bearer }
+                  expires_in: { type: integer, example: 3600 }
+                  scope: { type: string, example: public partner }
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /quotes:
+    get:
+      operationId: searchQuotes
+      tags: [Quotes & Locations]
+      summary: Search parking quotes
+      description: >-
+        Search bookable parking availability and pricing for a location, event,
+        or time window. Returns quotes with prices and the associated parking
+        location.
+      parameters:
+        - name: q
+          in: query
+          description: >-
+            Composite search string, e.g. coordinates plus a start/end time
+            window (bounding box, radius, event id, and time filters are
+            supported).
+          schema: { type: string }
+        - name: fields
+          in: query
+          description: Comma-separated sparse fieldset controlling the embedded objects returned.
+          schema: { type: string }
+      responses:
+        '200':
+          description: A list of quotes.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Quote' }
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /locations:
+    get:
+      operationId: searchLocations
+      tags: [Quotes & Locations]
+      summary: Search parking locations
+      description: Find parking facilities within a geographic area.
+      parameters:
+        - name: q
+          in: query
+          schema: { type: string }
+      responses:
+        '200':
+          description: A list of parking locations.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Location' }
+  /locations/{location_id}:
+    get:
+      operationId: getLocation
+      tags: [Quotes & Locations]
+      summary: Retrieve a parking location
+      parameters:
+        - $ref: '#/components/parameters/LocationId'
+      responses:
+        '200':
+          description: A parking location.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Location' }
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /locations/{location_id}/reviews:
+    get:
+      operationId: listLocationReviews
+      tags: [Quotes & Locations]
+      summary: List reviews for a location
+      parameters:
+        - $ref: '#/components/parameters/LocationId'
+      responses:
+        '200':
+          description: A list of reviews.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Review' }
+    post:
+      operationId: createLocationReview
+      tags: [Quotes & Locations]
+      summary: Create a review for a location
+      parameters:
+        - $ref: '#/components/parameters/LocationId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/Review' }
+      responses:
+        '201':
+          description: The created review.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Review' }
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /bookings:
+    get:
+      operationId: listBookings
+      tags: [Bookings]
+      summary: List the authenticated user's bookings
+      responses:
+        '200':
+          description: A list of bookings.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Booking' }
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createBooking
+      tags: [Bookings]
+      summary: Create a booking
+      description: Reserve parking from a selected quote. Requires a user-authorized token.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/BookingRequest' }
+      responses:
+        '201':
+          description: The created booking.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Booking' }
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /bookings/previews:
+    post:
+      operationId: previewBooking
+      tags: [Bookings]
+      summary: Preview a booking price
+      description: Price a prospective booking before committing to it.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/BookingRequest' }
+      responses:
+        '200':
+          description: A booking price preview.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Booking' }
+  /bookings/{booking_id}:
+    get:
+      operationId: getBooking
+      tags: [Bookings]
+      summary: Retrieve a booking
+      parameters:
+        - $ref: '#/components/parameters/BookingId'
+      responses:
+        '200':
+          description: A booking.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Booking' }
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: cancelBooking
+      tags: [Bookings]
+      summary: Cancel a booking
+      parameters:
+        - $ref: '#/components/parameters/BookingId'
+      responses:
+        '204':
+          description: The booking was cancelled.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /bookings/{booking_id}/parking_pass:
+    get:
+      operationId: getBookingParkingPass
+      tags: [Bookings]
+      summary: Retrieve the parking pass for a booking
+      description: >-
+        Returns a pre-formatted ParkWhiz parking pass. Requires a user
+        authorization token for the account holding the booking.
+      parameters:
+        - $ref: '#/components/parameters/BookingId'
+      responses:
+        '200':
+          description: An array of parking pass models (length 1).
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/ParkingPass' }
+  /bookings/{booking_id}/vehicle:
+    get:
+      operationId: getBookingVehicle
+      tags: [Bookings]
+      summary: Retrieve the vehicle attached to a booking
+      parameters:
+        - $ref: '#/components/parameters/BookingId'
+      responses:
+        '200':
+          description: The vehicle attached to the booking.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Vehicle' }
+    post:
+      operationId: setBookingVehicle
+      tags: [Bookings]
+      summary: Attach a vehicle to a booking
+      description: >-
+        Attach a known and existing vehicle to a booking by vehicle_id, used to
+        validate a vehicle at many parking locations. Requires a user
+        authorization token for the target account.
+      parameters:
+        - $ref: '#/components/parameters/BookingId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                vehicle_id: { type: integer }
+              required: [vehicle_id]
+      responses:
+        '200':
+          description: The attached vehicle.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Vehicle' }
+  /bookings/{booking_id}/extend/previews:
+    post:
+      operationId: previewBookingExtension
+      tags: [Bookings]
+      summary: Preview extending a booking
+      parameters:
+        - $ref: '#/components/parameters/BookingId'
+      responses:
+        '200':
+          description: An extension price preview.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Booking' }
+  /bookings/{booking_id}/extend:
+    post:
+      operationId: extendBooking
+      tags: [Bookings]
+      summary: Extend a booking's duration
+      parameters:
+        - $ref: '#/components/parameters/BookingId'
+      responses:
+        '200':
+          description: The extended booking.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Booking' }
+  /monthly_bookings:
+    get:
+      operationId: listMonthlyBookings
+      tags: [Monthly Parking]
+      summary: List monthly bookings
+      responses:
+        '200':
+          description: A list of monthly bookings.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Booking' }
+  /monthly_bookings/{booking_id}:
+    get:
+      operationId: getMonthlyBooking
+      tags: [Monthly Parking]
+      summary: Retrieve a monthly booking
+      parameters:
+        - $ref: '#/components/parameters/BookingId'
+      responses:
+        '200':
+          description: A monthly booking.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Booking' }
+  /venues:
+    get:
+      operationId: searchVenues
+      tags: [Venues & Events]
+      summary: Search venues
+      responses:
+        '200':
+          description: A list of venues.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Venue' }
+  /venues/{venue_id}:
+    get:
+      operationId: getVenue
+      tags: [Venues & Events]
+      summary: Retrieve a venue
+      parameters:
+        - name: venue_id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: A venue.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Venue' }
+  /venues/{venue_id}/events:
+    get:
+      operationId: listVenueEvents
+      tags: [Venues & Events]
+      summary: List events at a venue
+      parameters:
+        - name: venue_id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: A list of events.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Event' }
+  /events:
+    get:
+      operationId: searchEvents
+      tags: [Venues & Events]
+      summary: Search events
+      responses:
+        '200':
+          description: A list of events.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Event' }
+  /events/{event_id}:
+    get:
+      operationId: getEvent
+      tags: [Venues & Events]
+      summary: Retrieve an event
+      parameters:
+        - name: event_id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: An event.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Event' }
+  /accounts:
+    post:
+      operationId: createAccount
+      tags: [Accounts & Vehicles]
+      summary: Create an account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/Account' }
+      responses:
+        '201':
+          description: The created account.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Account' }
+  /accounts/me:
+    get:
+      operationId: getCurrentAccount
+      tags: [Accounts & Vehicles]
+      summary: Retrieve the current user's account
+      responses:
+        '200':
+          description: The current account.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Account' }
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    patch:
+      operationId: updateCurrentAccount
+      tags: [Accounts & Vehicles]
+      summary: Update the current user's account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/Account' }
+      responses:
+        '200':
+          description: The updated account.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Account' }
+  /accounts/me/vehicles:
+    get:
+      operationId: listVehicles
+      tags: [Accounts & Vehicles]
+      summary: List saved vehicles
+      responses:
+        '200':
+          description: A list of vehicles.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Vehicle' }
+    post:
+      operationId: addVehicle
+      tags: [Accounts & Vehicles]
+      summary: Add a vehicle
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/Vehicle' }
+      responses:
+        '201':
+          description: The created vehicle.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Vehicle' }
+  /accounts/me/vehicles/{vehicle_id}:
+    get:
+      operationId: getVehicle
+      tags: [Accounts & Vehicles]
+      summary: Retrieve a vehicle
+      parameters:
+        - $ref: '#/components/parameters/VehicleId'
+      responses:
+        '200':
+          description: A vehicle.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Vehicle' }
+    patch:
+      operationId: updateVehicle
+      tags: [Accounts & Vehicles]
+      summary: Update a vehicle
+      parameters:
+        - $ref: '#/components/parameters/VehicleId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/Vehicle' }
+      responses:
+        '200':
+          description: The updated vehicle.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Vehicle' }
+    delete:
+      operationId: deleteVehicle
+      tags: [Accounts & Vehicles]
+      summary: Delete a vehicle
+      parameters:
+        - $ref: '#/components/parameters/VehicleId'
+      responses:
+        '204':
+          description: The vehicle was deleted.
+  /accounts/me/payment_methods:
+    get:
+      operationId: listPaymentMethods
+      tags: [Accounts & Vehicles]
+      summary: List payment methods
+      responses:
+        '200':
+          description: A list of payment methods.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/PaymentMethod' }
+    post:
+      operationId: addPaymentMethod
+      tags: [Accounts & Vehicles]
+      summary: Add a payment method
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/PaymentMethod' }
+      responses:
+        '201':
+          description: The created payment method.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/PaymentMethod' }
+  /tickets:
+    post:
+      operationId: createTicket
+      tags: [Tickets]
+      summary: Create a ticket
+      description: Create a drive-up parking transaction or violation record.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/Ticket' }
+      responses:
+        '201':
+          description: The created ticket.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Ticket' }
+  /tickets/previews:
+    post:
+      operationId: previewTicket
+      tags: [Tickets]
+      summary: Preview a ticket payment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/Ticket' }
+      responses:
+        '200':
+          description: A ticket price preview.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Ticket' }
+  /tickets/{ticket_id}/pay:
+    post:
+      operationId: payTicket
+      tags: [Tickets]
+      summary: Pay a ticket
+      parameters:
+        - name: ticket_id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: The paid ticket.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Ticket' }
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: >-
+        OAuth 2.0. Partner credentials (client_id, client_secret, redirect_uri)
+        are issued by ParkWhiz to approved partners. Scopes: public (default),
+        partner, mobile, internal, data.
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.parkwhiz.com/v4/oauth/token
+          scopes:
+            public: Default read access to public resources.
+            partner: Partner-level access to bookable inventory and bookings.
+            data: Access to resources restricted by data licensing.
+        authorizationCode:
+          authorizationUrl: https://api.parkwhiz.com/v4/oauth/authorize
+          tokenUrl: https://api.parkwhiz.com/v4/oauth/token
+          scopes:
+            public: Default read access to public resources.
+            mobile: Mobile app user access.
+  parameters:
+    LocationId:
+      name: location_id
+      in: path
+      required: true
+      schema: { type: integer }
+    BookingId:
+      name: booking_id
+      in: path
+      required: true
+      schema: { type: integer }
+    VehicleId:
+      name: vehicle_id
+      in: path
+      required: true
+      schema: { type: integer }
+  responses:
+    Unauthorized:
+      description: Missing or invalid OAuth token.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    UnprocessableEntity:
+      description: The request could not be processed.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+  schemas:
+    Error:
+      type: object
+      properties:
+        message: { type: string }
+        code: { type: string }
+    Quote:
+      type: object
+      properties:
+        id: { type: integer }
+        location_id: { type: integer }
+        start_time: { type: string, format: date-time }
+        end_time: { type: string, format: date-time }
+        price:
+          $ref: '#/components/schemas/Price'
+        purchase_options:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: integer }
+              base_price: { $ref: '#/components/schemas/Price' }
+              price: { $ref: '#/components/schemas/Price' }
+    Price:
+      type: object
+      properties:
+        currency: { type: string, example: USD }
+        amount: { type: number, format: float }
+        formatted: { type: string, example: $12.00 }
+    Location:
+      type: object
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        address1: { type: string }
+        city: { type: string }
+        state: { type: string }
+        postal_code: { type: string }
+        coordinates:
+          type: array
+          items: { type: number }
+          example: [41.8781, -87.6298]
+        bookable: { type: boolean }
+        description: { type: string }
+    Review:
+      type: object
+      properties:
+        id: { type: integer }
+        rating: { type: integer, minimum: 1, maximum: 5 }
+        body: { type: string }
+        created_at: { type: string, format: date-time }
+    BookingRequest:
+      type: object
+      properties:
+        quote_id: { type: integer }
+        payment_method_id: { type: integer }
+        vehicle_id: { type: integer }
+      required: [quote_id]
+    Booking:
+      type: object
+      properties:
+        id: { type: integer }
+        location_id: { type: integer }
+        start_time: { type: string, format: date-time }
+        end_time: { type: string, format: date-time }
+        status: { type: string, example: valid }
+        price: { $ref: '#/components/schemas/Price' }
+        parking_pass_id: { type: integer }
+        vehicle: { $ref: '#/components/schemas/Vehicle' }
+    ParkingPass:
+      type: object
+      properties:
+        id: { type: integer }
+        type: { type: string, example: barcode }
+        validation_steps:
+          type: array
+          items: { type: string }
+        scan_code_url: { type: string, format: uri }
+    Vehicle:
+      type: object
+      properties:
+        id: { type: integer }
+        make: { type: string }
+        model: { type: string }
+        color: { type: string }
+        license_plate: { type: string }
+        license_plate_state: { type: string }
+    PaymentMethod:
+      type: object
+      properties:
+        id: { type: integer }
+        type: { type: string, example: card }
+        brand: { type: string, example: visa }
+        last4: { type: string, example: '4242' }
+        exp_month: { type: integer }
+        exp_year: { type: integer }
+    Venue:
+      type: object
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        coordinates:
+          type: array
+          items: { type: number }
+        address: { type: string }
+    Event:
+      type: object
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        venue_id: { type: integer }
+        start_time: { type: string, format: date-time }
+        end_time: { type: string, format: date-time }
+    Account:
+      type: object
+      properties:
+        id: { type: integer }
+        email: { type: string, format: email }
+        first_name: { type: string }
+        last_name: { type: string }
+        phone: { type: string }
+    Ticket:
+      type: object
+      properties:
+        id: { type: integer }
+        location_id: { type: integer }
+        status: { type: string, example: open }
+        price: { $ref: '#/components/schemas/Price' }
+        vehicle: { $ref: '#/components/schemas/Vehicle' }
