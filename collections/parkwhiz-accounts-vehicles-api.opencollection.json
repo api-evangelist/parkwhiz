@@ -1,0 +1,180 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ParkWhiz / Arrive API v4 Accounts & Vehicles API",
+    "version": "4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://api.parkwhiz.com/v4/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Accounts & Vehicles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parkwhiz.com/v4/accounts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an account"
+        },
+        {
+          "info": {
+            "name": "Retrieve the current user's account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parkwhiz.com/v4/accounts/me"
+          },
+          "docs": "Retrieve the current user's account"
+        },
+        {
+          "info": {
+            "name": "Update the current user's account",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.parkwhiz.com/v4/accounts/me",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the current user's account"
+        },
+        {
+          "info": {
+            "name": "List saved vehicles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parkwhiz.com/v4/accounts/me/vehicles"
+          },
+          "docs": "List saved vehicles"
+        },
+        {
+          "info": {
+            "name": "Add a vehicle",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parkwhiz.com/v4/accounts/me/vehicles",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a vehicle"
+        },
+        {
+          "info": {
+            "name": "Retrieve a vehicle",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parkwhiz.com/v4/accounts/me/vehicles/:vehicle_id",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a vehicle"
+        },
+        {
+          "info": {
+            "name": "Update a vehicle",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.parkwhiz.com/v4/accounts/me/vehicles/:vehicle_id",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a vehicle"
+        },
+        {
+          "info": {
+            "name": "Delete a vehicle",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.parkwhiz.com/v4/accounts/me/vehicles/:vehicle_id",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a vehicle"
+        },
+        {
+          "info": {
+            "name": "List payment methods",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parkwhiz.com/v4/accounts/me/payment_methods"
+          },
+          "docs": "List payment methods"
+        },
+        {
+          "info": {
+            "name": "Add a payment method",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parkwhiz.com/v4/accounts/me/payment_methods",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a payment method"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

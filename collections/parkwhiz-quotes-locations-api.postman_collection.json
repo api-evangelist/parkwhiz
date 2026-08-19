@@ -1,0 +1,707 @@
+{
+  "item": [
+    {
+      "id": "4df08283-0d61-4b3b-a3d8-124f6254f968",
+      "name": "Quotes & Locations",
+      "description": {
+        "content": "Search bookable availability and pricing, and parking location details.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e3440dde-7926-4438-aa95-33bc61441a2c",
+          "name": "Search parking quotes",
+          "request": {
+            "name": "Search parking quotes",
+            "description": {
+              "content": "Search bookable parking availability and pricing for a location, event, or time window. Returns quotes with prices and the associated parking location.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "quotes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "Composite search string, e.g. coordinates plus a start/end time window (bounding box, radius, event id, and time filters are supported)."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated sparse fieldset controlling the embedded objects returned."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "56592bb3-2cd4-4050-85d7-5e0c945e7a29",
+              "name": "A list of quotes.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 5967,\n    \"location_id\": 3714,\n    \"start_time\": \"1949-11-16T23:00:50.948Z\",\n    \"end_time\": \"1965-11-04T10:18:39.529Z\",\n    \"price\": {\n      \"currency\": \"USD\",\n      \"amount\": 337.921305974227,\n      \"formatted\": \"$12.00\"\n    },\n    \"purchase_options\": [\n      {\n        \"id\": 8151,\n        \"base_price\": {\n          \"currency\": \"USD\",\n          \"amount\": 5926.954983005788,\n          \"formatted\": \"$12.00\"\n        },\n        \"price\": {\n          \"currency\": \"USD\",\n          \"amount\": 729.7569085647359,\n          \"formatted\": \"$12.00\"\n        }\n      },\n      {\n        \"id\": 8733,\n        \"base_price\": {\n          \"currency\": \"USD\",\n          \"amount\": 9629.957282776977,\n          \"formatted\": \"$12.00\"\n        },\n        \"price\": {\n          \"currency\": \"USD\",\n          \"amount\": 2296.1332388106603,\n          \"formatted\": \"$12.00\"\n        }\n      }\n    ]\n  },\n  {\n    \"id\": 7929,\n    \"location_id\": 1738,\n    \"start_time\": \"2019-10-20T17:03:47.919Z\",\n    \"end_time\": \"1950-07-01T23:32:31.851Z\",\n    \"price\": {\n      \"currency\": \"USD\",\n      \"amount\": 8715.375022234542,\n      \"formatted\": \"$12.00\"\n    },\n    \"purchase_options\": [\n      {\n        \"id\": 2741,\n        \"base_price\": {\n          \"currency\": \"USD\",\n          \"amount\": 1908.8528701643093,\n          \"formatted\": \"$12.00\"\n        },\n        \"price\": {\n          \"currency\": \"USD\",\n          \"amount\": 7517.097770187848,\n          \"formatted\": \"$12.00\"\n        }\n      },\n      {\n        \"id\": 4586,\n        \"base_price\": {\n          \"currency\": \"USD\",\n          \"amount\": 8929.886938925174,\n          \"formatted\": \"$12.00\"\n        },\n        \"price\": {\n          \"currency\": \"USD\",\n          \"amount\": 368.99049858941544,\n          \"formatted\": \"$12.00\"\n        }\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "072da33b-3610-42b9-8545-08011e98ea38",
+              "name": "Missing or invalid OAuth token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bb31a88a-cb08-46aa-ad81-173c73eedf11",
+          "name": "Search parking locations",
+          "request": {
+            "name": "Search parking locations",
+            "description": {
+              "content": "Find parking facilities within a geographic area.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "locations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bce957cb-a2c1-44b6-86c8-1cf9001441e4",
+              "name": "A list of parking locations.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 9824,\n    \"name\": \"string\",\n    \"address1\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"postal_code\": \"string\",\n    \"coordinates\": [\n      41.8781,\n      -87.6298\n    ],\n    \"bookable\": false,\n    \"description\": \"string\"\n  },\n  {\n    \"id\": 3524,\n    \"name\": \"string\",\n    \"address1\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"postal_code\": \"string\",\n    \"coordinates\": [\n      41.8781,\n      -87.6298\n    ],\n    \"bookable\": false,\n    \"description\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "86511e58-99c6-4f71-a5c1-a6b5b540dc0b",
+          "name": "Retrieve a parking location",
+          "request": {
+            "name": "Retrieve a parking location",
+            "description": {},
+            "url": {
+              "path": [
+                "locations",
+                ":location_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "location_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "98feaa68-1e3a-4299-a6c7-2efae35727f2",
+              "name": "A parking location.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locations",
+                    ":location_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "location_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1769,\n  \"name\": \"string\",\n  \"address1\": \"string\",\n  \"city\": \"string\",\n  \"state\": \"string\",\n  \"postal_code\": \"string\",\n  \"coordinates\": [\n    41.8781,\n    -87.6298\n  ],\n  \"bookable\": true,\n  \"description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b5ca0ee2-cf55-4e58-a04e-f7f2502e4dd1",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locations",
+                    ":location_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "location_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a58a365d-4977-4e3a-a578-cf81eef20d48",
+          "name": "List reviews for a location",
+          "request": {
+            "name": "List reviews for a location",
+            "description": {},
+            "url": {
+              "path": [
+                "locations",
+                ":location_id",
+                "reviews"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "location_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8dd9b388-bd31-42f7-b4e1-79923834108b",
+              "name": "A list of reviews.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locations",
+                    ":location_id",
+                    "reviews"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "location_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 1489,\n    \"rating\": 1,\n    \"body\": \"string\",\n    \"created_at\": \"1977-05-06T08:45:40.027Z\"\n  },\n  {\n    \"id\": 3113,\n    \"rating\": 1,\n    \"body\": \"string\",\n    \"created_at\": \"1979-11-01T22:56:29.493Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fa31b717-e00e-4c85-bb19-35c695cd0c3f",
+          "name": "Create a review for a location",
+          "request": {
+            "name": "Create a review for a location",
+            "description": {},
+            "url": {
+              "path": [
+                "locations",
+                ":location_id",
+                "reviews"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "location_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<integer>\",\n  \"rating\": \"<integer>\",\n  \"body\": \"<string>\",\n  \"created_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "76f19ade-9183-4062-b23a-6daa221e8e3a",
+              "name": "The created review.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locations",
+                    ":location_id",
+                    "reviews"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "location_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<integer>\",\n  \"rating\": \"<integer>\",\n  \"body\": \"<string>\",\n  \"created_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"<integer>\",\n  \"rating\": \"<integer>\",\n  \"body\": \"<string>\",\n  \"created_at\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7ae76e7-d888-44f5-9618-d509887cc061",
+              "name": "Missing or invalid OAuth token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locations",
+                    ":location_id",
+                    "reviews"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "location_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<integer>\",\n  \"rating\": \"<integer>\",\n  \"body\": \"<string>\",\n  \"created_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.parkwhiz.com/v4",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "public partner data"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.parkwhiz.com/v4/oauth/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d448148a-771a-4493-81cc-47b25e802d42",
+    "name": "ParkWhiz / Arrive API v4 Accounts & Vehicles Quotes & Locations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ParkWhiz v4 REST API powers parking discovery, reservation, and payment for the ParkWhiz and BestParking consumer products and for approved integration partners. It exposes bookable parking availability and pricing (quotes), parking locations, bookings and parking passes, venues and events, monthly parking, accounts, vehicles, payment methods, and tickets.\nAccess is partner-gated: the API is publicly documented at developer.parkwhiz.com (mirrored at developer.arrive.com), but OAuth client credentials (client_id, client_secret, redirect_uri) are issued to approved partners on request via dev@parkwhiz.com, not through self-serve signup. Scopes are assigned per partner - public (default), partner, mobile, internal, and data. A sandbox environment is available for development.\nThis OpenAPI document was authored by API Evangelist from the public v4 developer documentation. Paths and methods reflect the documented API; the schema shapes are representative models, not a byte-for-byte copy of the provider spec.\n\nContact Support:\n Name: ParkWhiz Developer Support\n Email: dev@parkwhiz.com",
+      "type": "text/plain"
+    }
+  }
+}

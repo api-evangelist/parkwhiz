@@ -1,0 +1,200 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ParkWhiz / Arrive API v4 Accounts & Vehicles Bookings API",
+    "version": "4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://api.parkwhiz.com/v4/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bookings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List the authenticated user's bookings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parkwhiz.com/v4/bookings"
+          },
+          "docs": "List the authenticated user's bookings"
+        },
+        {
+          "info": {
+            "name": "Create a booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parkwhiz.com/v4/bookings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Reserve parking from a selected quote. Requires a user-authorized token."
+        },
+        {
+          "info": {
+            "name": "Preview a booking price",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parkwhiz.com/v4/bookings/previews",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Price a prospective booking before committing to it."
+        },
+        {
+          "info": {
+            "name": "Retrieve a booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parkwhiz.com/v4/bookings/:booking_id",
+            "params": [
+              {
+                "name": "booking_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a booking"
+        },
+        {
+          "info": {
+            "name": "Cancel a booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.parkwhiz.com/v4/bookings/:booking_id",
+            "params": [
+              {
+                "name": "booking_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Cancel a booking"
+        },
+        {
+          "info": {
+            "name": "Retrieve the parking pass for a booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parkwhiz.com/v4/bookings/:booking_id/parking_pass",
+            "params": [
+              {
+                "name": "booking_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns a pre-formatted ParkWhiz parking pass. Requires a user authorization token for the account holding the booking."
+        },
+        {
+          "info": {
+            "name": "Retrieve the vehicle attached to a booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parkwhiz.com/v4/bookings/:booking_id/vehicle",
+            "params": [
+              {
+                "name": "booking_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve the vehicle attached to a booking"
+        },
+        {
+          "info": {
+            "name": "Attach a vehicle to a booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parkwhiz.com/v4/bookings/:booking_id/vehicle",
+            "params": [
+              {
+                "name": "booking_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Attach a known and existing vehicle to a booking by vehicle_id, used to validate a vehicle at many parking locations. Requires a user authorization token for the target account."
+        },
+        {
+          "info": {
+            "name": "Preview extending a booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parkwhiz.com/v4/bookings/:booking_id/extend/previews",
+            "params": [
+              {
+                "name": "booking_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Preview extending a booking"
+        },
+        {
+          "info": {
+            "name": "Extend a booking's duration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parkwhiz.com/v4/bookings/:booking_id/extend",
+            "params": [
+              {
+                "name": "booking_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Extend a booking's duration"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

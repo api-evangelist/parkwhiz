@@ -1,0 +1,130 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ParkWhiz / Arrive API v4 Accounts & Vehicles Quotes & Locations API",
+    "version": "4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://api.parkwhiz.com/v4/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Quotes & Locations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search parking quotes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parkwhiz.com/v4/quotes",
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Composite search string, e.g. coordinates plus a start/end time window (bounding box, radius, event id, and time filters are supported)."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated sparse fieldset controlling the embedded objects returned."
+              }
+            ]
+          },
+          "docs": "Search bookable parking availability and pricing for a location, event, or time window. Returns quotes with prices and the associated parking location."
+        },
+        {
+          "info": {
+            "name": "Search parking locations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parkwhiz.com/v4/locations",
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Find parking facilities within a geographic area."
+        },
+        {
+          "info": {
+            "name": "Retrieve a parking location",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parkwhiz.com/v4/locations/:location_id",
+            "params": [
+              {
+                "name": "location_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a parking location"
+        },
+        {
+          "info": {
+            "name": "List reviews for a location",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parkwhiz.com/v4/locations/:location_id/reviews",
+            "params": [
+              {
+                "name": "location_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List reviews for a location"
+        },
+        {
+          "info": {
+            "name": "Create a review for a location",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parkwhiz.com/v4/locations/:location_id/reviews",
+            "params": [
+              {
+                "name": "location_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a review for a location"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

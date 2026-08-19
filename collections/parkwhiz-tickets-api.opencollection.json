@@ -1,0 +1,77 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ParkWhiz / Arrive API v4 Accounts & Vehicles Tickets API",
+    "version": "4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://api.parkwhiz.com/v4/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tickets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a ticket",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parkwhiz.com/v4/tickets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a drive-up parking transaction or violation record."
+        },
+        {
+          "info": {
+            "name": "Preview a ticket payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parkwhiz.com/v4/tickets/previews",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Preview a ticket payment"
+        },
+        {
+          "info": {
+            "name": "Pay a ticket",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parkwhiz.com/v4/tickets/:ticket_id/pay",
+            "params": [
+              {
+                "name": "ticket_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Pay a ticket"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

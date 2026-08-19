@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ParkWhiz / Arrive API v4 Accounts & Vehicles Monthly Parking API",
+    "version": "4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://api.parkwhiz.com/v4/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Monthly Parking",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List monthly bookings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parkwhiz.com/v4/monthly_bookings"
+          },
+          "docs": "List monthly bookings"
+        },
+        {
+          "info": {
+            "name": "Retrieve a monthly booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parkwhiz.com/v4/monthly_bookings/:booking_id",
+            "params": [
+              {
+                "name": "booking_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a monthly booking"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

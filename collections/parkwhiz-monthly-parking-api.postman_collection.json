@@ -1,0 +1,217 @@
+{
+  "item": [
+    {
+      "id": "b26eb925-c6b8-4531-89ed-814ac257565b",
+      "name": "Monthly Parking",
+      "description": {
+        "content": "Recurring monthly parking bookings.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9bf0fa7d-9d63-4458-92c3-5193c7962508",
+          "name": "List monthly bookings",
+          "request": {
+            "name": "List monthly bookings",
+            "description": {},
+            "url": {
+              "path": [
+                "monthly_bookings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eadb6e6d-9583-4f8e-85e8-f3364c712e3b",
+              "name": "A list of monthly bookings.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monthly_bookings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 8481,\n    \"location_id\": 2099,\n    \"start_time\": \"1980-03-28T15:54:45.767Z\",\n    \"end_time\": \"1965-09-14T16:41:00.717Z\",\n    \"status\": \"valid\",\n    \"price\": {\n      \"currency\": \"USD\",\n      \"amount\": 4146.897270565742,\n      \"formatted\": \"$12.00\"\n    },\n    \"parking_pass_id\": 3712,\n    \"vehicle\": {\n      \"id\": 3882,\n      \"make\": \"string\",\n      \"model\": \"string\",\n      \"color\": \"string\",\n      \"license_plate\": \"string\",\n      \"license_plate_state\": \"string\"\n    }\n  },\n  {\n    \"id\": 4612,\n    \"location_id\": 6568,\n    \"start_time\": \"1989-12-26T06:00:21.456Z\",\n    \"end_time\": \"2015-11-03T18:03:04.233Z\",\n    \"status\": \"valid\",\n    \"price\": {\n      \"currency\": \"USD\",\n      \"amount\": 3512.4644186964238,\n      \"formatted\": \"$12.00\"\n    },\n    \"parking_pass_id\": 4729,\n    \"vehicle\": {\n      \"id\": 6096,\n      \"make\": \"string\",\n      \"model\": \"string\",\n      \"color\": \"string\",\n      \"license_plate\": \"string\",\n      \"license_plate_state\": \"string\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4db1bb32-6845-4881-9390-89119ec5f1ff",
+          "name": "Retrieve a monthly booking",
+          "request": {
+            "name": "Retrieve a monthly booking",
+            "description": {},
+            "url": {
+              "path": [
+                "monthly_bookings",
+                ":booking_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "booking_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c1fbf61b-652d-47d0-8c3d-e2f20c2ed6a9",
+              "name": "A monthly booking.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monthly_bookings",
+                    ":booking_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "booking_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 217,\n  \"location_id\": 5432,\n  \"start_time\": \"2016-11-02T13:38:29.207Z\",\n  \"end_time\": \"2001-07-06T02:27:07.309Z\",\n  \"status\": \"valid\",\n  \"price\": {\n    \"currency\": \"USD\",\n    \"amount\": 8716.080349228823,\n    \"formatted\": \"$12.00\"\n  },\n  \"parking_pass_id\": 6603,\n  \"vehicle\": {\n    \"id\": 5361,\n    \"make\": \"string\",\n    \"model\": \"string\",\n    \"color\": \"string\",\n    \"license_plate\": \"string\",\n    \"license_plate_state\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.parkwhiz.com/v4",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "public partner data"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.parkwhiz.com/v4/oauth/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ee919750-b840-4b83-a251-e4528906a870",
+    "name": "ParkWhiz / Arrive API v4 Accounts & Vehicles Monthly Parking API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ParkWhiz v4 REST API powers parking discovery, reservation, and payment for the ParkWhiz and BestParking consumer products and for approved integration partners. It exposes bookable parking availability and pricing (quotes), parking locations, bookings and parking passes, venues and events, monthly parking, accounts, vehicles, payment methods, and tickets.\nAccess is partner-gated: the API is publicly documented at developer.parkwhiz.com (mirrored at developer.arrive.com), but OAuth client credentials (client_id, client_secret, redirect_uri) are issued to approved partners on request via dev@parkwhiz.com, not through self-serve signup. Scopes are assigned per partner - public (default), partner, mobile, internal, and data. A sandbox environment is available for development.\nThis OpenAPI document was authored by API Evangelist from the public v4 developer documentation. Paths and methods reflect the documented API; the schema shapes are representative models, not a byte-for-byte copy of the provider spec.\n\nContact Support:\n Name: ParkWhiz Developer Support\n Email: dev@parkwhiz.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,341 @@
+{
+  "item": [
+    {
+      "id": "1c0ace79-51b0-4272-bf52-8cfe749e0254",
+      "name": "Tickets",
+      "description": {
+        "content": "Drive-up parking transactions, violations, and payment.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "354c6564-49ca-4d66-bcbb-6574abda69d4",
+          "name": "Create a ticket",
+          "request": {
+            "name": "Create a ticket",
+            "description": {
+              "content": "Create a drive-up parking transaction or violation record.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tickets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<integer>\",\n  \"location_id\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"price\": {\n    \"currency\": \"<string>\",\n    \"amount\": \"<float>\",\n    \"formatted\": \"<string>\"\n  },\n  \"vehicle\": {\n    \"id\": \"<integer>\",\n    \"make\": \"<string>\",\n    \"model\": \"<string>\",\n    \"color\": \"<string>\",\n    \"license_plate\": \"<string>\",\n    \"license_plate_state\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "641d19a9-0d29-4f64-97f4-95b5785aa733",
+              "name": "The created ticket.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tickets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<integer>\",\n  \"location_id\": \"<integer>\",\n  \"status\": \"open\",\n  \"price\": {\n    \"currency\": \"USD\",\n    \"amount\": \"<float>\",\n    \"formatted\": \"$12.00\"\n  },\n  \"vehicle\": {\n    \"id\": \"<integer>\",\n    \"make\": \"<string>\",\n    \"model\": \"<string>\",\n    \"color\": \"<string>\",\n    \"license_plate\": \"<string>\",\n    \"license_plate_state\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"<integer>\",\n  \"location_id\": \"<integer>\",\n  \"status\": \"open\",\n  \"price\": {\n    \"currency\": \"USD\",\n    \"amount\": \"<float>\",\n    \"formatted\": \"$12.00\"\n  },\n  \"vehicle\": {\n    \"id\": \"<integer>\",\n    \"make\": \"<string>\",\n    \"model\": \"<string>\",\n    \"color\": \"<string>\",\n    \"license_plate\": \"<string>\",\n    \"license_plate_state\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6433be0f-9df1-4a65-9ab5-b6e194c1a764",
+          "name": "Preview a ticket payment",
+          "request": {
+            "name": "Preview a ticket payment",
+            "description": {},
+            "url": {
+              "path": [
+                "tickets",
+                "previews"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<integer>\",\n  \"location_id\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"price\": {\n    \"currency\": \"<string>\",\n    \"amount\": \"<float>\",\n    \"formatted\": \"<string>\"\n  },\n  \"vehicle\": {\n    \"id\": \"<integer>\",\n    \"make\": \"<string>\",\n    \"model\": \"<string>\",\n    \"color\": \"<string>\",\n    \"license_plate\": \"<string>\",\n    \"license_plate_state\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b83dd8d0-0fd1-4870-bd51-04e954192ece",
+              "name": "A ticket price preview.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tickets",
+                    "previews"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<integer>\",\n  \"location_id\": \"<integer>\",\n  \"status\": \"open\",\n  \"price\": {\n    \"currency\": \"USD\",\n    \"amount\": \"<float>\",\n    \"formatted\": \"$12.00\"\n  },\n  \"vehicle\": {\n    \"id\": \"<integer>\",\n    \"make\": \"<string>\",\n    \"model\": \"<string>\",\n    \"color\": \"<string>\",\n    \"license_plate\": \"<string>\",\n    \"license_plate_state\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"<integer>\",\n  \"location_id\": \"<integer>\",\n  \"status\": \"open\",\n  \"price\": {\n    \"currency\": \"USD\",\n    \"amount\": \"<float>\",\n    \"formatted\": \"$12.00\"\n  },\n  \"vehicle\": {\n    \"id\": \"<integer>\",\n    \"make\": \"<string>\",\n    \"model\": \"<string>\",\n    \"color\": \"<string>\",\n    \"license_plate\": \"<string>\",\n    \"license_plate_state\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a2994500-9c4e-40bc-ac50-f4c98da30b01",
+          "name": "Pay a ticket",
+          "request": {
+            "name": "Pay a ticket",
+            "description": {},
+            "url": {
+              "path": [
+                "tickets",
+                ":ticket_id",
+                "pay"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "ticket_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5a1b693e-6e9b-4aae-bf77-18f66a899af7",
+              "name": "The paid ticket.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tickets",
+                    ":ticket_id",
+                    "pay"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "ticket_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"<integer>\",\n  \"location_id\": \"<integer>\",\n  \"status\": \"open\",\n  \"price\": {\n    \"currency\": \"USD\",\n    \"amount\": \"<float>\",\n    \"formatted\": \"$12.00\"\n  },\n  \"vehicle\": {\n    \"id\": \"<integer>\",\n    \"make\": \"<string>\",\n    \"model\": \"<string>\",\n    \"color\": \"<string>\",\n    \"license_plate\": \"<string>\",\n    \"license_plate_state\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.parkwhiz.com/v4",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "public partner data"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.parkwhiz.com/v4/oauth/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bb2086f8-2474-42c4-a080-7f187f16ecb0",
+    "name": "ParkWhiz / Arrive API v4 Accounts & Vehicles Tickets API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ParkWhiz v4 REST API powers parking discovery, reservation, and payment for the ParkWhiz and BestParking consumer products and for approved integration partners. It exposes bookable parking availability and pricing (quotes), parking locations, bookings and parking passes, venues and events, monthly parking, accounts, vehicles, payment methods, and tickets.\nAccess is partner-gated: the API is publicly documented at developer.parkwhiz.com (mirrored at developer.arrive.com), but OAuth client credentials (client_id, client_secret, redirect_uri) are issued to approved partners on request via dev@parkwhiz.com, not through self-serve signup. Scopes are assigned per partner - public (default), partner, mobile, internal, and data. A sandbox environment is available for development.\nThis OpenAPI document was authored by API Evangelist from the public v4 developer documentation. Paths and methods reflect the documented API; the schema shapes are representative models, not a byte-for-byte copy of the provider spec.\n\nContact Support:\n Name: ParkWhiz Developer Support\n Email: dev@parkwhiz.com",
+      "type": "text/plain"
+    }
+  }
+}
