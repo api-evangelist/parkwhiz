@@ -34,6 +34,14 @@ tags:
 - Bookings
 - Transportation
 - Location
+- Event
+tags_raw:
+- Parking
+- Mobility
+- Reservations
+- Bookings
+- Transportation
+- Location
 - Events
 created: '2026-07-03'
 modified: '2026-07-03'
@@ -99,6 +107,8 @@ apis:
   humanURL: https://developer.parkwhiz.com/v4/
   baseURL: https://api.parkwhiz.com/v4
   tags:
+  - Authentication
+  tags_raw:
   - OAuth
   properties:
   - type: OpenAPI
