@@ -188,6 +188,9 @@ apis:
   - type: OpenCollection
     url: collections/parkwhiz.opencollection.json
 common:
+- type: CapabilityMap
+  url: capabilities/parkwhiz-capability-edges.yml
+  name: ParkWhiz Business Capability Map
 - type: AgenticAccess
   url: agentic-access/parkwhiz-agentic-access.yml
 - type: DomainSecurity

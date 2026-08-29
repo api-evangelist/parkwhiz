@@ -1,0 +1,25 @@
+slug: parkwhiz
+provider: ParkWhiz
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Automotive & Mobility
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Bookings
+  spec_file: parkwhiz-bookings-api-openapi.yml
+  capability_id: BC-3490.20
+  capability_id_l1: BC-3490
+  capability_name: Trip and Booking Operations
+  confidence: 0.75
+  evidence: POST /bookings  createBooking  Create a booking; DELETE /bookings/{booking_id}  cancelBooking;
+    POST /bookings/{booking_id}/extend  extendBooking  Extend a booking's duration; GET /bookings/{booking_id}/parking_pass
+  reason: Full lifecycle of parking reservations — create, preview price, cancel, extend, issue pass —
+    which is booking capture and lifecycle management for an on-demand mobility service.
