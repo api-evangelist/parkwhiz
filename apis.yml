@@ -13,6 +13,18 @@ description: ParkWhiz is a parking reservation and mobility platform (with the
   "Arrive" name from Flash and rebranded itself to Arrive in 2025. The v4 API is
   publicly documented but partner-gated - OAuth client credentials are issued to
   approved partners on request (dev@parkwhiz.com), not self-serve.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: enterprise
   onboarding: self-serve
