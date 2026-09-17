@@ -113,26 +113,6 @@ apis:
     url: collections/parkwhiz.postman_collection.json
   - type: OpenCollection
     url: collections/parkwhiz.opencollection.json
-- aid: parkwhiz:parkwhiz-oauth-api
-  name: ParkWhiz OAuth API
-  description: Token issuance for partner and user authorization.
-  humanURL: https://developer.parkwhiz.com/v4/
-  baseURL: https://api.parkwhiz.com/v4
-  tags:
-  - Authentication
-  tags_raw:
-  - OAuth
-  properties:
-  - type: OpenAPI
-    url: openapi/parkwhiz-oauth-api-openapi.yml
-  - type: Documentation
-    url: https://developer.parkwhiz.com/
-  - type: APIReference
-    url: https://developer.parkwhiz.com/v4/
-  - type: PostmanCollection
-    url: collections/parkwhiz.postman_collection.json
-  - type: OpenCollection
-    url: collections/parkwhiz.opencollection.json
 - aid: parkwhiz:parkwhiz-quotes-locations-api
   name: ParkWhiz Quotes & Locations API
   description: Search bookable availability and pricing, and parking location details.
@@ -179,6 +159,24 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/parkwhiz-venues-events-api-openapi.yml
+  - type: Documentation
+    url: https://developer.parkwhiz.com/
+  - type: APIReference
+    url: https://developer.parkwhiz.com/v4/
+  - type: PostmanCollection
+    url: collections/parkwhiz.postman_collection.json
+  - type: OpenCollection
+    url: collections/parkwhiz.opencollection.json
+- aid: parkwhiz:parkwhiz-oauth-api
+  name: ParkWhiz O Auth API
+  description: Token issuance for partner and user authorization.
+  humanURL: https://developer.parkwhiz.com/v4/
+  baseURL: https://api.parkwhiz.com/v4
+  tags:
+  - OAuth
+  properties:
+  - type: OpenAPI
+    url: openapi/parkwhiz-oauth-api-openapi.yml
   - type: Documentation
     url: https://developer.parkwhiz.com/
   - type: APIReference
