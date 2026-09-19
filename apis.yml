@@ -43,7 +43,7 @@ tags:
 - Parking
 - Mobility
 - Reservations
-- Bookings
+- Booking
 - Transportation
 - Location
 - Event
@@ -83,6 +83,8 @@ apis:
   humanURL: https://developer.parkwhiz.com/v4/
   baseURL: https://api.parkwhiz.com/v4
   tags:
+  - Booking
+  tags_raw:
   - Bookings
   properties:
   - type: OpenAPI
@@ -173,6 +175,8 @@ apis:
   humanURL: https://developer.parkwhiz.com/v4/
   baseURL: https://api.parkwhiz.com/v4
   tags:
+  - Authentication
+  tags_raw:
   - OAuth
   properties:
   - type: OpenAPI
