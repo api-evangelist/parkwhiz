@@ -1,13 +1,7 @@
 {
   "provider": "parkwhiz",
   "sources": [
-    "parkwhiz-accounts-vehicles-api-openapi.yml",
-    "parkwhiz-bookings-api-openapi.yml",
-    "parkwhiz-monthly-parking-api-openapi.yml",
-    "parkwhiz-oauth-api-openapi.yml",
-    "parkwhiz-quotes-locations-api-openapi.yml",
-    "parkwhiz-tickets-api-openapi.yml",
-    "parkwhiz-venues-events-api-openapi.yml"
+    "_original/parkwhiz-openapi.yml"
   ],
   "outputs": [
     "parkwhiz-accounts-vehicles-api-openapi.yml",
@@ -18,9 +12,24 @@
     "parkwhiz-tickets-api-openapi.yml",
     "parkwhiz-venues-events-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "parkwhiz-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "superseded outputs removed: parkwhiz-o-auth-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 7 total)"
+  ],
+  "skipped": [
+    "parkwhiz-accounts-vehicles-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "parkwhiz-bookings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "parkwhiz-monthly-parking-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "parkwhiz-o-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "parkwhiz-quotes-locations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "parkwhiz-tickets-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "parkwhiz-venues-events-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
