@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: ParkWhiz / Arrive API v4 O Auth API
+  title: ParkWhiz / Arrive API v4 OAuth API
   description: The ParkWhiz v4 REST API powers parking discovery, reservation, and payment for the ParkWhiz and BestParking consumer products and for approved integration partners.
   version: '4.0'
   contact:

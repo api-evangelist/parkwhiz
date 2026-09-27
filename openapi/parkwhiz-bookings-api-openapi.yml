@@ -221,21 +221,28 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    Vehicle:
+    Booking:
       type: object
       properties:
         id:
           type: integer
-        make:
+        location_id:
+          type: integer
+        start_time:
           type: string
-        model:
+          format: date-time
+        end_time:
           type: string
-        color:
+          format: date-time
+        status:
           type: string
-        license_plate:
-          type: string
-        license_plate_state:
-          type: string
+          example: valid
+        price:
+          $ref: '#/components/schemas/Price'
+        parking_pass_id:
+          type: integer
+        vehicle:
+          $ref: '#/components/schemas/Vehicle'
     Error:
       type: object
       properties:
@@ -255,6 +262,21 @@ components:
         formatted:
           type: string
           example: $12.00
+    Vehicle:
+      type: object
+      properties:
+        id:
+          type: integer
+        make:
+          type: string
+        model:
+          type: string
+        color:
+          type: string
+        license_plate:
+          type: string
+        license_plate_state:
+          type: string
     ParkingPass:
       type: object
       properties:
@@ -281,28 +303,6 @@ components:
           type: integer
       required:
       - quote_id
-    Booking:
-      type: object
-      properties:
-        id:
-          type: integer
-        location_id:
-          type: integer
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        status:
-          type: string
-          example: valid
-        price:
-          $ref: '#/components/schemas/Price'
-        parking_pass_id:
-          type: integer
-        vehicle:
-          $ref: '#/components/schemas/Vehicle'
   parameters:
     BookingId:
       name: booking_id

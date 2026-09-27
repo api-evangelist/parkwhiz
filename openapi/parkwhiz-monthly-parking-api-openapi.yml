@@ -53,7 +53,29 @@ paths:
               schema:
                 $ref: '#/components/schemas/Booking'
 components:
+  parameters:
+    BookingId:
+      name: booking_id
+      in: path
+      required: true
+      schema:
+        type: integer
   schemas:
+    Vehicle:
+      type: object
+      properties:
+        id:
+          type: integer
+        make:
+          type: string
+        model:
+          type: string
+        color:
+          type: string
+        license_plate:
+          type: string
+        license_plate_state:
+          type: string
     Booking:
       type: object
       properties:
@@ -88,28 +110,6 @@ components:
         formatted:
           type: string
           example: $12.00
-    Vehicle:
-      type: object
-      properties:
-        id:
-          type: integer
-        make:
-          type: string
-        model:
-          type: string
-        color:
-          type: string
-        license_plate:
-          type: string
-        license_plate_state:
-          type: string
-  parameters:
-    BookingId:
-      name: booking_id
-      in: path
-      required: true
-      schema:
-        type: integer
   securitySchemes:
     oauth2:
       type: oauth2

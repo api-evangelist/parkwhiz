@@ -139,6 +139,8 @@ apis:
   humanURL: https://developer.parkwhiz.com/v4/
   baseURL: https://api.parkwhiz.com/v4
   tags:
+  - Ticketing
+  tags_raw:
   - Tickets
   properties:
   - type: OpenAPI

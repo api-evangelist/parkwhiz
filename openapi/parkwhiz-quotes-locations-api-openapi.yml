@@ -129,6 +129,13 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    LocationId:
+      name: location_id
+      in: path
+      required: true
+      schema:
+        type: integer
   schemas:
     Review:
       type: object
@@ -144,32 +151,6 @@ components:
         created_at:
           type: string
           format: date-time
-    Location:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        address1:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        postal_code:
-          type: string
-        coordinates:
-          type: array
-          items:
-            type: number
-          example:
-          - 41.8781
-          - -87.6298
-        bookable:
-          type: boolean
-        description:
-          type: string
     Error:
       type: object
       properties:
@@ -177,18 +158,6 @@ components:
           type: string
         code:
           type: string
-    Price:
-      type: object
-      properties:
-        currency:
-          type: string
-          example: USD
-        amount:
-          type: number
-          format: float
-        formatted:
-          type: string
-          example: $12.00
     Quote:
       type: object
       properties:
@@ -215,6 +184,44 @@ components:
                 $ref: '#/components/schemas/Price'
               price:
                 $ref: '#/components/schemas/Price'
+    Price:
+      type: object
+      properties:
+        currency:
+          type: string
+          example: USD
+        amount:
+          type: number
+          format: float
+        formatted:
+          type: string
+          example: $12.00
+    Location:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        address1:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postal_code:
+          type: string
+        coordinates:
+          type: array
+          items:
+            type: number
+          example:
+          - 41.8781
+          - -87.6298
+        bookable:
+          type: boolean
+        description:
+          type: string
   responses:
     NotFound:
       description: The requested resource was not found.
@@ -228,13 +235,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    LocationId:
-      name: location_id
-      in: path
-      required: true
-      schema:
-        type: integer
   securitySchemes:
     oauth2:
       type: oauth2

@@ -82,32 +82,6 @@ paths:
                 $ref: '#/components/schemas/Ticket'
 components:
   schemas:
-    Ticket:
-      type: object
-      properties:
-        id:
-          type: integer
-        location_id:
-          type: integer
-        status:
-          type: string
-          example: open
-        price:
-          $ref: '#/components/schemas/Price'
-        vehicle:
-          $ref: '#/components/schemas/Vehicle'
-    Price:
-      type: object
-      properties:
-        currency:
-          type: string
-          example: USD
-        amount:
-          type: number
-          format: float
-        formatted:
-          type: string
-          example: $12.00
     Vehicle:
       type: object
       properties:
@@ -123,6 +97,32 @@ components:
           type: string
         license_plate_state:
           type: string
+    Price:
+      type: object
+      properties:
+        currency:
+          type: string
+          example: USD
+        amount:
+          type: number
+          format: float
+        formatted:
+          type: string
+          example: $12.00
+    Ticket:
+      type: object
+      properties:
+        id:
+          type: integer
+        location_id:
+          type: integer
+        status:
+          type: string
+          example: open
+        price:
+          $ref: '#/components/schemas/Price'
+        vehicle:
+          $ref: '#/components/schemas/Vehicle'
   securitySchemes:
     oauth2:
       type: oauth2
