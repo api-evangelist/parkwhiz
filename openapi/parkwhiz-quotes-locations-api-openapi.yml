@@ -129,14 +129,26 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    LocationId:
-      name: location_id
-      in: path
-      required: true
-      schema:
-        type: integer
   schemas:
+    Price:
+      type: object
+      properties:
+        currency:
+          type: string
+          example: USD
+        amount:
+          type: number
+          format: float
+        formatted:
+          type: string
+          example: $12.00
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
     Review:
       type: object
       properties:
@@ -151,13 +163,6 @@ components:
         created_at:
           type: string
           format: date-time
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
     Quote:
       type: object
       properties:
@@ -184,18 +189,6 @@ components:
                 $ref: '#/components/schemas/Price'
               price:
                 $ref: '#/components/schemas/Price'
-    Price:
-      type: object
-      properties:
-        currency:
-          type: string
-          example: USD
-        amount:
-          type: number
-          format: float
-        formatted:
-          type: string
-          example: $12.00
     Location:
       type: object
       properties:
@@ -235,6 +228,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    LocationId:
+      name: location_id
+      in: path
+      required: true
+      schema:
+        type: integer
   securitySchemes:
     oauth2:
       type: oauth2

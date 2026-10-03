@@ -187,41 +187,12 @@ paths:
                 $ref: '#/components/schemas/PaymentMethod'
 components:
   schemas:
-    Account:
-      type: object
-      properties:
-        id:
-          type: integer
-        email:
-          type: string
-          format: email
-        first_name:
-          type: string
-        last_name:
-          type: string
-        phone:
-          type: string
     Error:
       type: object
       properties:
         message:
           type: string
         code:
-          type: string
-    Vehicle:
-      type: object
-      properties:
-        id:
-          type: integer
-        make:
-          type: string
-        model:
-          type: string
-        color:
-          type: string
-        license_plate:
-          type: string
-        license_plate_state:
           type: string
     PaymentMethod:
       type: object
@@ -241,13 +212,35 @@ components:
           type: integer
         exp_year:
           type: integer
-  responses:
-    Unauthorized:
-      description: Missing or invalid OAuth token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    Account:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+          format: email
+        first_name:
+          type: string
+        last_name:
+          type: string
+        phone:
+          type: string
+    Vehicle:
+      type: object
+      properties:
+        id:
+          type: integer
+        make:
+          type: string
+        model:
+          type: string
+        color:
+          type: string
+        license_plate:
+          type: string
+        license_plate_state:
+          type: string
   parameters:
     VehicleId:
       name: vehicle_id
@@ -255,6 +248,13 @@ components:
       required: true
       schema:
         type: integer
+  responses:
+    Unauthorized:
+      description: Missing or invalid OAuth token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth2:
       type: oauth2

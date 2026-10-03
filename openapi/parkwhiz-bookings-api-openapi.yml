@@ -201,26 +201,67 @@ paths:
               schema:
                 $ref: '#/components/schemas/Booking'
 components:
-  responses:
-    UnprocessableEntity:
-      description: The request could not be processed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid OAuth token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    Price:
+      type: object
+      properties:
+        currency:
+          type: string
+          example: USD
+        amount:
+          type: number
+          format: float
+        formatted:
+          type: string
+          example: $12.00
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+    Vehicle:
+      type: object
+      properties:
+        id:
+          type: integer
+        make:
+          type: string
+        model:
+          type: string
+        color:
+          type: string
+        license_plate:
+          type: string
+        license_plate_state:
+          type: string
+    BookingRequest:
+      type: object
+      properties:
+        quote_id:
+          type: integer
+        payment_method_id:
+          type: integer
+        vehicle_id:
+          type: integer
+      required:
+      - quote_id
+    ParkingPass:
+      type: object
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+          example: barcode
+        validation_steps:
+          type: array
+          items:
+            type: string
+        scan_code_url:
+          type: string
+          format: uri
     Booking:
       type: object
       properties:
@@ -243,66 +284,25 @@ components:
           type: integer
         vehicle:
           $ref: '#/components/schemas/Vehicle'
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-    Price:
-      type: object
-      properties:
-        currency:
-          type: string
-          example: USD
-        amount:
-          type: number
-          format: float
-        formatted:
-          type: string
-          example: $12.00
-    Vehicle:
-      type: object
-      properties:
-        id:
-          type: integer
-        make:
-          type: string
-        model:
-          type: string
-        color:
-          type: string
-        license_plate:
-          type: string
-        license_plate_state:
-          type: string
-    ParkingPass:
-      type: object
-      properties:
-        id:
-          type: integer
-        type:
-          type: string
-          example: barcode
-        validation_steps:
-          type: array
-          items:
-            type: string
-        scan_code_url:
-          type: string
-          format: uri
-    BookingRequest:
-      type: object
-      properties:
-        quote_id:
-          type: integer
-        payment_method_id:
-          type: integer
-        vehicle_id:
-          type: integer
-      required:
-      - quote_id
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid OAuth token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request could not be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     BookingId:
       name: booking_id
