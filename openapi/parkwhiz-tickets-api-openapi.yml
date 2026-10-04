@@ -82,21 +82,6 @@ paths:
                 $ref: '#/components/schemas/Ticket'
 components:
   schemas:
-    Vehicle:
-      type: object
-      properties:
-        id:
-          type: integer
-        make:
-          type: string
-        model:
-          type: string
-        color:
-          type: string
-        license_plate:
-          type: string
-        license_plate_state:
-          type: string
     Price:
       type: object
       properties:
@@ -123,6 +108,21 @@ components:
           $ref: '#/components/schemas/Price'
         vehicle:
           $ref: '#/components/schemas/Vehicle'
+    Vehicle:
+      type: object
+      properties:
+        id:
+          type: integer
+        make:
+          type: string
+        model:
+          type: string
+        color:
+          type: string
+        license_plate:
+          type: string
+        license_plate_state:
+          type: string
   securitySchemes:
     oauth2:
       type: oauth2
