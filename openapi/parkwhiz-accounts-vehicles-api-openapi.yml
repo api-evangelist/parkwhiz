@@ -186,21 +186,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaymentMethod'
 components:
-  responses:
-    Unauthorized:
-      description: Missing or invalid OAuth token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
     Vehicle:
       type: object
       properties:
@@ -215,6 +201,20 @@ components:
         license_plate:
           type: string
         license_plate_state:
+          type: string
+    Account:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+          format: email
+        first_name:
+          type: string
+        last_name:
+          type: string
+        phone:
           type: string
     PaymentMethod:
       type: object
@@ -234,20 +234,20 @@ components:
           type: integer
         exp_year:
           type: integer
-    Account:
+    Error:
       type: object
       properties:
-        id:
-          type: integer
-        email:
+        message:
           type: string
-          format: email
-        first_name:
+        code:
           type: string
-        last_name:
-          type: string
-        phone:
-          type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid OAuth token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     VehicleId:
       name: vehicle_id

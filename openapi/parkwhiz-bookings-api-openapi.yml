@@ -202,6 +202,21 @@ paths:
                 $ref: '#/components/schemas/Booking'
 components:
   schemas:
+    Vehicle:
+      type: object
+      properties:
+        id:
+          type: integer
+        make:
+          type: string
+        model:
+          type: string
+        color:
+          type: string
+        license_plate:
+          type: string
+        license_plate_state:
+          type: string
     Price:
       type: object
       properties:
@@ -236,6 +251,17 @@ components:
           type: integer
         vehicle:
           $ref: '#/components/schemas/Vehicle'
+    BookingRequest:
+      type: object
+      properties:
+        quote_id:
+          type: integer
+        payment_method_id:
+          type: integer
+        vehicle_id:
+          type: integer
+      required:
+      - quote_id
     ParkingPass:
       type: object
       properties:
@@ -251,32 +277,6 @@ components:
         scan_code_url:
           type: string
           format: uri
-    BookingRequest:
-      type: object
-      properties:
-        quote_id:
-          type: integer
-        payment_method_id:
-          type: integer
-        vehicle_id:
-          type: integer
-      required:
-      - quote_id
-    Vehicle:
-      type: object
-      properties:
-        id:
-          type: integer
-        make:
-          type: string
-        model:
-          type: string
-        color:
-          type: string
-        license_plate:
-          type: string
-        license_plate_state:
-          type: string
     Error:
       type: object
       properties:
