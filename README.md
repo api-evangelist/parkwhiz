@@ -1,4 +1,4 @@
-# ParkWhiz (parkwhiz)
+# ParkWhiz
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,111 +64,135 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-ParkWhiz is a parking reservation and mobility platform - with the BestParking discovery brand - that lets drivers search, price, reserve, and pay for parking at facilities, venues, and events across North America. Its consumer apps and website are backed by a documented v4 REST API covering location and quote search, bookings, parking passes, venues and events, monthly parking, vehicles, payment methods, and accounts.
+ParkWhiz is a parking reservation and mobility platform (with the BestParking discovery brand) that lets drivers search, price, reserve, and pay for parking at facilities, venues, and events across North America. Its consumer apps and website are backed by a documented v4 REST API (api.parkwhiz.com / api.arrive.com) covering location and quote search, bookings, parking passes, venues and events, monthly parking, vehicles, payment methods, and accounts. ParkWhiz was rebranded to Arrive / Arrive Mobility and merged into FlashParking (Flash) in January 2021; separately, EasyPark Group acquired the rights to the "Arrive" name from Flash and rebranded itself to Arrive in 2025. The v4 API is publicly documented but partner-gated - OAuth client credentials are issued to approved partners on request (dev@parkwhiz.com), not self-serve.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/parkwhiz/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/parkwhiz/refs/heads/main/apis.yml)
+**Areas:** Parking · Mobility · Reservations · Booking · Transportation · Location · Event
 
-## Access Model (Partner-Gated)
+## ParkWhiz on APIs.io
 
-The ParkWhiz v4 API is **publicly documented but partner-gated**. The full reference lives at [developer.parkwhiz.com/v4](https://developer.parkwhiz.com/v4/) (mirrored at [developer.arrive.com/v4](https://developer.arrive.com/v4/)), but you cannot self-serve credentials. OAuth `client_id`, `client_secret`, and `redirect_uri` are issued to **approved integration partners** on request via **dev@parkwhiz.com**.
+Everything profiled for ParkWhiz is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/parkwhiz/](https://apis.io/providers/parkwhiz/)** — or go straight to one of the APIs or properties below.
 
-- **Production:** `https://api.parkwhiz.com/v4` (also `https://api.arrive.com/v4`)
-- **Sandbox:** `https://api-sandbox.parkwhiz.com/v4`
-- **Auth:** OAuth 2.0 bearer tokens (client_credentials, password, authorization_code, refresh_token, public/mobile grants)
-- **Scopes:** `public` (default), `partner`, `mobile`, `internal`, `data` (assigned per partner; some partners receive only `public` and `partner`)
+### APIs (7)
 
-## Corporate History (Arrive / Flash / EasyPark / Flowbird)
+- [ParkWhiz Accounts & Vehicles API](https://apis.io/apis/parkwhiz/parkwhiz-accounts-vehicles-api/) — User accounts, vehicles, and payment methods.
+- [ParkWhiz Bookings API](https://apis.io/apis/parkwhiz/parkwhiz-bookings-api/) — Create and manage parking reservations and parking passes.
+- [ParkWhiz Monthly Parking API](https://apis.io/apis/parkwhiz/parkwhiz-monthly-parking-api/) — Recurring monthly parking bookings.
+- [ParkWhiz Quotes & Locations API](https://apis.io/apis/parkwhiz/parkwhiz-quotes-locations-api/) — Search bookable availability and pricing, and parking location details.
+- [ParkWhiz Tickets API](https://apis.io/apis/parkwhiz/parkwhiz-tickets-api/) — Drive-up parking transactions, violations, and payment.
+- [ParkWhiz Venues & Events API](https://apis.io/apis/parkwhiz/parkwhiz-venues-events-api/) — Venue and event lookup for event parking.
+- [ParkWhiz O Auth API](https://apis.io/apis/parkwhiz/parkwhiz-oauth-api/) — Token issuance for partner and user authorization.
 
-The corporate lineage around this brand is easy to conflate, so it is documented explicitly here:
+### Published properties
 
-- **ParkWhiz** was founded in 2006 (Chicago) and, together with the **BestParking** discovery product, was consolidated under the **Arrive / Arrive Mobility** brand.
-- In **January 2021**, **Arrive Mobility** - including the **ParkWhiz** and **BestParking** consumer brands - **merged into FlashParking (Flash)**.
-- Separately, **EasyPark Group** acquired the **rights to the "Arrive" name** from Flash and rebranded EasyPark to **Arrive** (2025). EasyPark Group also **closed its acquisition of Flowbird Group in January 2025**.
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Note: a common assumption that "Flowbird acquired ParkWhiz/Arrive in 2024" is **not** supported by the record. The **ParkWhiz product and its v4 API line up under Flash**, while the **"Arrive" consumer name is now used by EasyPark Group** (which owns Flowbird). The developer portal continues to serve the same ParkWhiz v4 API under both the `parkwhiz.com` and `arrive.com` developer domains.
+#### Agentic access (1)
 
-## Tags
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- Parking
-- Mobility
-- Reservations
-- Bookings
-- Transportation
-- Location
-- Events
+- [Parkwhiz Agentic Access](https://apis.io/agentic-access/parkwhiz/parkwhiz-agentic-access/)
 
-## Timestamps
+#### Collections (8)
 
-- **Created:** 2026-07-03
-- **Modified:** 2026-07-03
+Postman and Open Collection request collections.
 
-## APIs
+- [ParkWhiz / Arrive API v4](https://apis.io/collections/parkwhiz/open-parkwhiz/)
+- [ParkWhiz / Arrive API v4 Accounts & Vehicles API](https://apis.io/collections/parkwhiz/open-parkwhiz-accounts-vehicles-api/)
+- [ParkWhiz / Arrive API v4 Accounts & Vehicles Bookings API](https://apis.io/collections/parkwhiz/open-parkwhiz-bookings-api/)
+- [ParkWhiz / Arrive API v4 Accounts & Vehicles Monthly Parking API](https://apis.io/collections/parkwhiz/open-parkwhiz-monthly-parking-api/)
+- [ParkWhiz / Arrive API v4 Accounts & Vehicles OAuth API](https://apis.io/collections/parkwhiz/open-parkwhiz-oauth-api/)
+- [ParkWhiz / Arrive API v4 Accounts & Vehicles Quotes & Locations API](https://apis.io/collections/parkwhiz/open-parkwhiz-quotes-locations-api/)
+- [ParkWhiz / Arrive API v4 Accounts & Vehicles Tickets API](https://apis.io/collections/parkwhiz/open-parkwhiz-tickets-api/)
+- [ParkWhiz / Arrive API v4 Accounts & Vehicles Venues & Events API](https://apis.io/collections/parkwhiz/open-parkwhiz-venues-events-api/)
 
-### ParkWhiz Quotes & Locations API
+#### Security (2)
 
-Search bookable parking availability and pricing (quotes) for an area, destination, venue, or event, and retrieve parking location (facility) details and reviews. Returns both bookable ParkWhiz inventory and non-bookable BestParking locations.
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://developer.parkwhiz.com/v4/](https://developer.parkwhiz.com/v4/)
-- **Base URL:** `https://api.parkwhiz.com/v4`
+- [Parkwhiz Authentication](https://apis.io/security/parkwhiz/parkwhiz-authentication/)
+- [Parkwhiz Domain Security](https://apis.io/security/parkwhiz/parkwhiz-domain-security/)
 
-### ParkWhiz Bookings API
+#### OAuth scopes (1)
 
-Preview, create, retrieve, list, extend, cancel, and share bookings from a selected quote; retrieve the parking pass and scan/QR code; attach a vehicle for validation. Requires a user-authorized OAuth token.
+The permissions the API asks for.
 
-- **Human URL:** [https://developer.parkwhiz.com/v4/](https://developer.parkwhiz.com/v4/)
-- **Base URL:** `https://api.parkwhiz.com/v4`
+- [Parkwhiz Scopes](https://apis.io/scopes/parkwhiz/parkwhiz-scopes/)
 
-### ParkWhiz Monthly Parking API
+#### Plans and pricing (1)
 
-List and retrieve recurring monthly parking bookings - the subscription-style counterpart to transient (hourly / daily / event) bookings.
+Published plans, tiers and prices.
 
-- **Human URL:** [https://developer.parkwhiz.com/v4/](https://developer.parkwhiz.com/v4/)
-- **Base URL:** `https://api.parkwhiz.com/v4`
+- [Parkwhiz Plans Pricing](https://apis.io/plans/parkwhiz/parkwhiz-plans-pricing/)
 
-### ParkWhiz Venues & Events API
+#### Rate limits (1)
 
-Search venues (stadiums, arenas, airports, theaters) and events, and retrieve events scheduled at a venue, to find and price event parking near a destination and time.
+Published request limits.
 
-- **Human URL:** [https://developer.parkwhiz.com/v4/](https://developer.parkwhiz.com/v4/)
-- **Base URL:** `https://api.parkwhiz.com/v4`
+- [Parkwhiz Rate Limits](https://apis.io/rate-limits/parkwhiz/parkwhiz-rate-limits/)
 
-### ParkWhiz Accounts & Vehicles API
+#### FinOps (1)
 
-Create and manage user accounts and profiles, saved vehicles, payment methods, frequent locations, and recommended bookings, plus account recovery, password reset, and phone verification.
+What the API costs to run, by operation.
 
-- **Human URL:** [https://developer.parkwhiz.com/v4/](https://developer.parkwhiz.com/v4/)
-- **Base URL:** `https://api.parkwhiz.com/v4`
+- [Parkwhiz Finops](https://apis.io/finops/parkwhiz/parkwhiz-finops/)
 
-### ParkWhiz Tickets API
+## Where to find this API
 
-Preview, create, update, pay, and close parking tickets (drive-up / on-demand transactions and violations), and associate a vehicle with a ticket.
-
-- **Human URL:** [https://developer.parkwhiz.com/v4/](https://developer.parkwhiz.com/v4/)
-- **Base URL:** `https://api.parkwhiz.com/v4`
-
-## Artifacts
-
-- [OpenAPI](openapi/parkwhiz-openapi.yml) - v4 REST surface authored by API Evangelist from the public developer docs
-- [Postman Collection](collections/parkwhiz.postman_collection.json)
-- [Open Collection](collections/parkwhiz.opencollection.json)
-- [Plans / Pricing](plans/parkwhiz-plans-pricing.yml) - partner / transaction-based economics
-- [Rate Limits](rate-limits/parkwhiz-rate-limits.yml)
-- [FinOps](finops/parkwhiz-finops.yml)
-
-## Common Properties
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.parkwhiz.com)
-- [LinkedIn](https://www.linkedin.com/company/parkwhiz)
 - [Documentation](https://developer.parkwhiz.com/)
-- [Developer Portal](https://developer.parkwhiz.com/)
-- [Getting Started](https://developer.parkwhiz.com/getting_started/)
-- [Changelog](https://developer.parkwhiz.com/changes/)
-- [SDK](https://developer.parkwhiz.com/libraries/)
-- [Plans](plans/parkwhiz-plans-pricing.yml)
-- [Rate Limits](rate-limits/parkwhiz-rate-limits.yml)
-- [Fin Ops](finops/parkwhiz-finops.yml)
+- [Getting started](https://developer.parkwhiz.com/getting_started/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 33.0** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 47.5 |
+| Contract governance | 0.0 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 58.3 |
+| Access clarity | 7.9 |
+
+**Agent readiness 27.2** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | documented (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 21.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/parkwhiz/](https://apis.io/providers/parkwhiz/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for ParkWhiz: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/parkwhiz/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
